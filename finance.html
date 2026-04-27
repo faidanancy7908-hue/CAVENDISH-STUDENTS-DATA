@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finance — Cavendish University Uganda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>*{font-family:'Inter',sans-serif}.sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}.lbl{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}.inp{width:100%;border:1px solid #e2e8f0;border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;outline:none;font-family:inherit}.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.15)}</style>
+</head>
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
+  <main class="flex-1 overflow-y-auto p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div><h2 class="text-xl font-bold text-slate-800">Finance Module</h2><p class="text-slate-500 text-sm">Track fees, payments & clearance</p></div>
+      <div class="flex items-center gap-3">
+        <select id="clearFilter" onchange="renderTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">All Students</option><option value="cleared">Cleared</option><option value="pending">Pending</option>
+        </select>
+        <div class="relative"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+          <input type="text" placeholder="Search…" oninput="filterTable('finTable',this.value)" class="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white w-44"/></div>
+        <button onclick="openPaymentModal()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Record Payment
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="finStats"></div>
+
+    <!-- Finance Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm mb-6">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="font-semibold text-slate-800">Fee Balances</h3>
+        <button onclick="openSetFeesModal()" class="text-xs text-indigo-600 hover:underline font-medium">Set Fees for Student</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table id="finTable" class="w-full text-sm">
+          <thead class="bg-slate-50 border-b border-slate-200"><tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Total Fees</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Amount Paid</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Balance</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Clearance</th>
+            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Actions</th>
+          </tr></thead>
+          <tbody id="finBody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Payment History -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="px-6 py-4 border-b border-slate-100"><h3 class="font-semibold text-slate-800">Recent Payment Transactions</h3></div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 border-b border-slate-200"><tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Ref</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Amount</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Method</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Notes</th>
+            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Del</th>
+          </tr></thead>
+          <tbody id="payBody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Record Payment Modal -->
+<div id="payModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 class="text-lg font-bold text-slate-800">Record Payment</h3>
+      <button onclick="closeModal('payModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <form id="payForm" onsubmit="savePayment(event)" class="p-6 space-y-4">
+      <div><label class="lbl">Student *</label>
+        <select id="p_student" required class="inp" onchange="showBalance()"><option value="">Select student…</option></select>
+        <div id="balancePreview" class="mt-2 p-3 bg-slate-50 rounded-xl text-xs text-slate-600 hidden"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="lbl">Amount (KES) *</label><input id="p_amount" type="number" min="1" placeholder="25000" required class="inp"/></div>
+        <div><label class="lbl">Date *</label><input id="p_date" type="date" required class="inp"/></div>
+      </div>
+      <div><label class="lbl">Payment Method *</label>
+        <select id="p_method" required class="inp">
+          <option value="">Select method</option><option>Bank Transfer</option><option>M-Pesa</option><option>Cash</option><option>Cheque</option><option>Card</option>
+        </select></div>
+      <div><label class="lbl">Reference Number *</label><input id="p_ref" type="text" placeholder="TXN2024…" required class="inp"/></div>
+      <div><label class="lbl">Notes</label><textarea id="p_notes" rows="2" class="inp resize-none" placeholder="e.g. Semester 1 fees…"></textarea></div>
+      <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+        <button type="button" onclick="closeModal('payModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium">Record Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Set Fees Modal -->
+<div id="feesModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 class="text-lg font-bold text-slate-800">Set Total Fees</h3>
+      <button onclick="closeModal('feesModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <form id="feesForm" onsubmit="saveFees(event)" class="p-6 space-y-4">
+      <div><label class="lbl">Student *</label><select id="fs_student" required class="inp"><option value="">Select…</option></select></div>
+      <div><label class="lbl">Total Fees (KES) *</label><input id="fs_fees" type="number" min="0" placeholder="45000" required class="inp"/></div>
+      <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+        <button type="button" onclick="closeModal('feesModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
+<script>
+const session = buildPage('finance.html','Finance');
+if(!['admin','finance'].includes(session.role)){toast('Access denied','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
+
+function renderStats(){
+  const fin=Finance.all(),pays=Payments.all();
+  const totalFees=fin.reduce((a,f)=>a+f.totalFees,0);
+  const totalPaid=fin.reduce((a,f)=>a+f.amountPaid,0);
+  const totalBal=fin.reduce((a,f)=>a+f.balance,0);
+  const cleared=fin.filter(f=>f.cleared).length;
+  document.getElementById('finStats').innerHTML=[
+    ['Total Fees Due','KES '+totalFees.toLocaleString(),'bg-blue-50 text-blue-700'],
+    ['Total Collected','KES '+totalPaid.toLocaleString(),'bg-emerald-50 text-emerald-700'],
+    ['Outstanding','KES '+totalBal.toLocaleString(),'bg-red-50 text-red-700'],
+    ['Cleared Students',cleared+' / '+fin.length,'bg-purple-50 text-purple-700'],
+  ].map(([l,v,c])=>`<div class="${c} rounded-2xl p-4"><div class="text-xl font-bold">${v}</div><div class="text-sm font-medium opacity-75">${l}</div></div>`).join('');
+}
+
+function renderTable(){
+  const cf=document.getElementById('clearFilter').value;
+  let fin=Finance.all();
+  if(cf==='cleared') fin=fin.filter(f=>f.cleared);
+  else if(cf==='pending') fin=fin.filter(f=>!f.cleared);
+  document.getElementById('finBody').innerHTML=fin.length?fin.map(f=>{
+    const stu=Students.find(f.studentId);
+    const pct=f.totalFees>0?Math.round(f.amountPaid/f.totalFees*100):0;
+    return`<tr class="hover:bg-slate-50 transition-colors">
+      <td class="px-6 py-4"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-sm">${stu?stu.name.charAt(0):'?'}</div>
+        <div><div class="font-medium text-slate-800">${stu?stu.name:f.studentId}</div><div class="text-xs text-slate-400">${f.studentId}</div></div></div></td>
+      <td class="px-6 py-4 font-semibold text-slate-700">${fmtCurrency(f.totalFees)}</td>
+      <td class="px-6 py-4">
+        <div class="font-semibold text-emerald-700">${fmtCurrency(f.amountPaid)}</div>
+        <div class="mt-1 w-32 h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:${pct}%"></div></div>
+        <div class="text-xs text-slate-400 mt-0.5">${pct}% paid</div>
+      </td>
+      <td class="px-6 py-4"><span class="font-semibold ${f.balance>0?'text-red-600':'text-emerald-600'}">${fmtCurrency(f.balance)}</span></td>
+      <td class="px-6 py-4">${clearanceBadge(f.cleared)}</td>
+      <td class="px-6 py-4 text-right">
+        <button onclick="quickPay('${f.studentId}')" class="text-xs bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1.5 rounded-lg font-medium transition-colors mr-1">+ Pay</button>
+        <button onclick="toggleClearance('${f.studentId}',${f.cleared})" class="text-xs ${f.cleared?'bg-red-100 text-red-700 hover:bg-red-200':'bg-blue-100 text-blue-700 hover:bg-blue-200'} px-3 py-1.5 rounded-lg font-medium transition-colors">${f.cleared?'Revoke':'Clear'}</button>
+      </td>
+    </tr>`;
+  }).join(''):emptyState('No finance records');
+
+  // Payment history
+  const pays=[...Payments.all()].reverse().slice(0,20);
+  document.getElementById('payBody').innerHTML=pays.length?pays.map(p=>{
+    const stu=Students.find(p.studentId);
+    return`<tr class="hover:bg-slate-50">
+      <td class="px-6 py-3"><span class="font-mono text-xs text-slate-500">${p.reference}</span></td>
+      <td class="px-6 py-3 font-medium text-slate-800">${stu?stu.name:p.studentId}</td>
+      <td class="px-6 py-3 font-semibold text-emerald-700">${fmtCurrency(p.amount)}</td>
+      <td class="px-6 py-3"><span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md">${p.method}</span></td>
+      <td class="px-6 py-3 text-slate-500 text-xs">${fmtDate(p.date)}</td>
+      <td class="px-6 py-3 text-slate-400 text-xs">${p.notes||'—'}</td>
+      <td class="px-6 py-3 text-right"><button onclick="deletePayment(${p.id})" class="p-1 text-slate-300 hover:text-red-500 rounded"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button></td>
+    </tr>`;
+  }).join(''):emptyState('No payments recorded');
+}
+
+function populateStudentDropdowns(){
+  const stus=Students.all();
+  ['p_student','fs_student'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel)return;
+    const cur=sel.value;
+    while(sel.options.length>1) sel.remove(1);
+    stus.forEach(s=>{const o=document.createElement('option');o.value=s.studentId;o.textContent=`${s.name} (${s.studentId})`;sel.appendChild(o);});
+    if(cur) sel.value=cur;
+  });
+}
+
+function openPaymentModal(){
+  document.getElementById('payForm').reset();
+  document.getElementById('p_date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('balancePreview').classList.add('hidden');
+  populateStudentDropdowns();
+  openModal('payModal');
+}
+
+function openSetFeesModal(){
+  document.getElementById('feesForm').reset();
+  populateStudentDropdowns();
+  openModal('feesModal');
+}
+
+function showBalance(){
+  const sid=document.getElementById('p_student').value;
+  const prev=document.getElementById('balancePreview');
+  if(!sid){prev.classList.add('hidden');return;}
+  const fin=Finance.forStudent(sid);
+  if(fin){
+    prev.innerHTML=`<div class="flex justify-between"><span>Total Fees:</span><span class="font-semibold">${fmtCurrency(fin.totalFees)}</span></div>
+    <div class="flex justify-between"><span>Paid:</span><span class="font-semibold text-emerald-600">${fmtCurrency(fin.amountPaid)}</span></div>
+    <div class="flex justify-between border-t border-slate-200 pt-1 mt-1"><span>Balance:</span><span class="font-bold text-red-600">${fmtCurrency(fin.balance)}</span></div>`;
+    prev.classList.remove('hidden');
+  }
+}
+
+function quickPay(sid){
+  openPaymentModal();
+  setTimeout(()=>{document.getElementById('p_student').value=sid;showBalance();},100);
+}
+
+function savePayment(e){
+  e.preventDefault();
+  const data={studentId:document.getElementById('p_student').value,amount:parseFloat(document.getElementById('p_amount').value),date:document.getElementById('p_date').value,method:document.getElementById('p_method').value,reference:document.getElementById('p_ref').value.trim(),notes:document.getElementById('p_notes').value.trim()};
+  try{Payments.create(data);toast('Payment recorded — balance updated in real-time');closeModal('payModal');renderStats();renderTable();}
+  catch(err){toast(err.message,'error');}
+}
+
+function saveFees(e){
+  e.preventDefault();
+  const sid=document.getElementById('fs_student').value;
+  const fees=parseFloat(document.getElementById('fs_fees').value);
+  Finance.update(sid,{totalFees:fees});
+  Finance.updateBalance(sid);
+  toast('Fees updated');closeModal('feesModal');renderStats();renderTable();
+}
+
+function toggleClearance(sid,current){
+  Finance.update(sid,{cleared:!current});
+  toast(!current?'Student marked as financially cleared':'Clearance revoked','info');
+  renderStats();renderTable();
+}
+
+function deletePayment(id){
+  if(!confirmDialog('Delete this payment record? The balance will be recalculated.'))return;
+  Payments.delete(id);toast('Payment deleted — balance recalculated','warning');renderStats();renderTable();
+}
+
+renderStats();renderTable();
+</script>
+</body>
+</html>

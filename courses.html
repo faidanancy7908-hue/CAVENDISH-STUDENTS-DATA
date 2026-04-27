@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses — Cavendish University Uganda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>*{font-family:'Inter',sans-serif}.sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}.lbl{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}.inp{width:100%;border:1px solid #e2e8f0;border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;outline:none;font-family:inherit}.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.15)}</style>
+</head>
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
+  <main class="flex-1 overflow-y-auto p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div><h2 class="text-xl font-bold text-slate-800">Course Management</h2><p class="text-slate-500 text-sm">Create and manage offered courses</p></div>
+      <div class="flex items-center gap-3">
+        <div class="relative"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+          <input type="text" placeholder="Search courses…" oninput="filterTable('courseTable',this.value)" class="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white w-48"/></div>
+        <select id="deptFilter" onchange="renderTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">All Departments</option>
+        </select>
+        <button id="addBtn" onclick="openAdd()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Add Course
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div id="statsRow" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6"></div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table id="courseTable" class="w-full text-sm">
+          <thead class="bg-slate-50 border-b border-slate-200"><tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Course</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Code</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Department</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Credits</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Semester</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Lecturer</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Enrolled</th>
+            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Actions</th>
+          </tr></thead>
+          <tbody id="courseBody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="cModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 id="cModalTitle" class="text-lg font-bold text-slate-800">Add Course</h3>
+      <button onclick="closeModal('cModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <form id="cForm" onsubmit="saveCourse(event)" class="p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div><label class="lbl">Course Code *</label><input id="c_code" type="text" placeholder="e.g. CS401" required class="inp"/></div>
+        <div><label class="lbl">Credit Units *</label><input id="c_credits" type="number" min="1" max="6" placeholder="3" required class="inp"/></div>
+        <div class="sm:col-span-2"><label class="lbl">Course Title *</label><input id="c_title" type="text" required class="inp"/></div>
+        <div><label class="lbl">Department *</label>
+          <select id="c_dept" required class="inp"><option value="">Select</option>
+            <option>Computer Science</option><option>Business Administration</option><option>Civil Engineering</option><option>Medicine</option><option>Law</option><option>Education</option><option>General Studies</option><option>Engineering</option>
+          </select></div>
+        <div><label class="lbl">Semester *</label>
+          <select id="c_sem" required class="inp"><option value="">Select</option>
+            <option value="2024/1">2024 Semester 1</option><option value="2024/2">2024 Semester 2</option><option value="2025/1">2025 Semester 1</option>
+          </select></div>
+        <div class="sm:col-span-2"><label class="lbl">Assigned Lecturer</label>
+          <select id="c_lec" class="inp"><option value="">None assigned</option></select></div>
+        <div class="sm:col-span-2"><label class="lbl">Description</label><textarea id="c_desc" rows="2" class="inp resize-none"></textarea></div>
+      </div>
+      <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+        <button type="button" onclick="closeModal('cModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save Course</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
+<script>
+const session = buildPage('courses.html','Courses');
+if(!['admin','registry','lecturer'].includes(session.role)){toast('Access denied','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
+const canEdit = ['admin','registry'].includes(session.role);
+if(!canEdit) document.getElementById('addBtn').classList.add('hidden');
+let editMode=false, editCode=null;
+
+function populateDeptFilter(){
+  const depts=[...new Set(Courses.all().map(c=>c.department))];
+  const sel=document.getElementById('deptFilter');
+  depts.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;sel.appendChild(o);});
+}
+
+function populateLecturers(){
+  const lecs=Users.all().filter(u=>u.role==='lecturer');
+  const sel=document.getElementById('c_lec');
+  lecs.forEach(l=>{const o=document.createElement('option');o.value=l.id;o.textContent=l.name;sel.appendChild(o);});
+}
+
+function renderStats(){
+  const courses=Courses.all();
+  const depts=[...new Set(courses.map(c=>c.department))].length;
+  const totalCredits=courses.reduce((a,c)=>a+c.creditUnits,0);
+  const totalEnrolled=Enrollments.all().length;
+  document.getElementById('statsRow').innerHTML=[
+    ['Total Courses',courses.length,'bg-indigo-50 text-indigo-700'],
+    ['Departments',depts,'bg-purple-50 text-purple-700'],
+    ['Total Credits',totalCredits,'bg-blue-50 text-blue-700'],
+    ['Enrollments',totalEnrolled,'bg-emerald-50 text-emerald-700'],
+  ].map(([l,v,cls])=>`<div class="${cls} rounded-2xl p-4"><div class="text-2xl font-bold">${v}</div><div class="text-sm font-medium opacity-75">${l}</div></div>`).join('');
+}
+
+function renderTable(){
+  const dept=document.getElementById('deptFilter').value;
+  const courses=dept?Courses.all().filter(c=>c.department===dept):Courses.all();
+  const users=Users.all();
+  const deptColors={'Computer Science':'bg-blue-100 text-blue-700','Business Administration':'bg-amber-100 text-amber-700','Civil Engineering':'bg-orange-100 text-orange-700','Medicine':'bg-red-100 text-red-700','General Studies':'bg-slate-100 text-slate-700','Engineering':'bg-cyan-100 text-cyan-700','Law':'bg-purple-100 text-purple-700','Education':'bg-green-100 text-green-700'};
+  document.getElementById('courseBody').innerHTML=courses.length?courses.map(c=>{
+    const lec=users.find(u=>u.id===c.lecturerId);
+    const enrolled=Enrollments.forCourse(c.courseCode).length;
+    const dClass=deptColors[c.department]||'bg-slate-100 text-slate-700';
+    return `<tr class="hover:bg-slate-50 transition-colors">
+      <td class="px-6 py-4"><div class="font-medium text-slate-800">${c.title}</div><div class="text-xs text-slate-400 mt-0.5">${c.description||''}</div></td>
+      <td class="px-6 py-4"><span class="font-mono text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded-md font-semibold">${c.courseCode}</span></td>
+      <td class="px-6 py-4"><span class="text-xs px-2.5 py-1 rounded-full font-medium ${dClass}">${c.department}</span></td>
+      <td class="px-6 py-4"><div class="flex items-center gap-1"><span class="w-6 h-6 rounded-md bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-bold">${c.creditUnits}</span></div></td>
+      <td class="px-6 py-4 text-slate-500 text-xs">${c.semester}</td>
+      <td class="px-6 py-4 text-slate-600 text-sm">${lec?lec.name:'Unassigned'}</td>
+      <td class="px-6 py-4"><span class="text-slate-700 font-medium">${enrolled}</span><span class="text-slate-400 text-xs"> students</span></td>
+      <td class="px-6 py-4 text-right">${canEdit?`
+        <button onclick="editCourse('${c.courseCode}')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg mr-1"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+        <button onclick="deleteCourse('${c.courseCode}')" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+      `:'<span class="text-slate-300 text-xs">View only</span>'}</td>
+    </tr>`;
+  }).join(''):emptyState('No courses found');
+}
+
+function openAdd(){
+  editMode=false;editCode=null;
+  document.getElementById('cModalTitle').textContent='Add New Course';
+  document.getElementById('cForm').reset();
+  document.getElementById('c_code').removeAttribute('readonly');
+  openModal('cModal');
+}
+
+function editCourse(code){
+  const c=Courses.find(code);if(!c)return;
+  editMode=true;editCode=code;
+  document.getElementById('cModalTitle').textContent='Edit Course';
+  document.getElementById('c_code').value=c.courseCode;
+  document.getElementById('c_code').setAttribute('readonly','true');
+  document.getElementById('c_title').value=c.title;
+  document.getElementById('c_credits').value=c.creditUnits;
+  document.getElementById('c_dept').value=c.department;
+  document.getElementById('c_sem').value=c.semester;
+  document.getElementById('c_lec').value=c.lecturerId||'';
+  document.getElementById('c_desc').value=c.description||'';
+  openModal('cModal');
+}
+
+function saveCourse(e){
+  e.preventDefault();
+  const data={
+    courseCode:document.getElementById('c_code').value.trim().toUpperCase(),
+    title:document.getElementById('c_title').value.trim(),
+    creditUnits:parseInt(document.getElementById('c_credits').value),
+    department:document.getElementById('c_dept').value,
+    semester:document.getElementById('c_sem').value,
+    lecturerId:parseInt(document.getElementById('c_lec').value)||null,
+    description:document.getElementById('c_desc').value.trim(),
+  };
+  try{
+    if(editMode){Courses.update(editCode,data);toast('Course updated');}
+    else{Courses.create(data);toast('Course created');}
+    closeModal('cModal');renderTable();renderStats();
+  }catch(err){toast(err.message,'error');}
+}
+
+function deleteCourse(code){
+  if(!confirmDialog('Delete course '+code+'? This cannot be undone.'))return;
+  Courses.delete(code);toast('Course deleted','warning');renderTable();renderStats();
+}
+
+populateDeptFilter();populateLecturers();renderStats();renderTable();
+</script>
+</body>
+</html>

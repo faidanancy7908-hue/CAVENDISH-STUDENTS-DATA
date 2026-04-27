@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students — Cavendish University Uganda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>*{font-family:'Inter',sans-serif}.sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}</style>
+</head>
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
+  <main class="flex-1 overflow-y-auto p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div><h2 class="text-xl font-bold text-slate-800">Student Records</h2><p class="text-slate-500 text-sm">Manage all registered students</p></div>
+      <div class="flex items-center gap-3">
+        <div class="relative"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+          <input id="searchInput" type="text" placeholder="Search…" oninput="filterTable('stuTable',this.value)" class="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white w-48"/></div>
+        <select id="statusFilter" onchange="renderTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">All Status</option><option value="active">Active</option><option value="inactive">Inactive</option>
+        </select>
+        <button id="addBtn" onclick="openAddModal()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Add Student
+        </button>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table id="stuTable" class="w-full text-sm">
+          <thead class="bg-slate-50 border-b border-slate-200"><tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Program</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Year</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Nationality</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Actions</th>
+          </tr></thead>
+          <tbody id="stuBody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+      <div id="stuCount" class="px-6 py-3 border-t border-slate-100 text-xs text-slate-400 bg-slate-50"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Add/Edit Modal -->
+<div id="stuModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 id="modalTitle" class="text-lg font-bold text-slate-800">Add New Student</h3>
+      <button onclick="closeModal('stuModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <form id="stuForm" onsubmit="saveStu(event)" class="p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="sm:col-span-2"><label class="lbl">Student ID *</label><input id="f_sid" type="text" placeholder="e.g. STU2024006" required class="inp"/></div>
+        <div><label class="lbl">Full Name *</label><input id="f_name" type="text" required class="inp"/></div>
+        <div><label class="lbl">Email *</label><input id="f_email" type="email" required class="inp"/></div>
+        <div><label class="lbl">Phone</label><input id="f_phone" type="text" class="inp"/></div>
+        <div><label class="lbl">Date of Birth</label><input id="f_dob" type="date" class="inp"/></div>
+        <div><label class="lbl">Gender</label><select id="f_gender" class="inp"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+        <div><label class="lbl">Nationality</label><input id="f_nat" type="text" class="inp"/></div>
+        <div><label class="lbl">Program *</label>
+          <select id="f_prog" required class="inp"><option value="">Select program</option>
+            <option>Computer Science</option><option>Business Administration</option><option>Civil Engineering</option><option>Medicine</option><option>Law</option><option>Education</option><option>Nursing</option><option>Architecture</option>
+          </select></div>
+        <div><label class="lbl">Year of Study *</label>
+          <select id="f_year" required class="inp"><option value="">Select year</option>
+            <option value="1">Year 1</option><option value="2">Year 2</option><option value="3">Year 3</option><option value="4">Year 4</option><option value="5">Year 5</option>
+          </select></div>
+        <div><label class="lbl">Status</label><select id="f_status" class="inp"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+        <div><label class="lbl">Photo URL</label><input id="f_photo" type="text" placeholder="https://..." class="inp"/></div>
+        <div><label class="lbl">Enrollment Date</label><input id="f_edate" type="date" class="inp"/></div>
+        <div class="sm:col-span-2"><label class="lbl">Address</label><textarea id="f_addr" rows="2" class="inp resize-none"></textarea></div>
+      </div>
+      <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+        <button type="button" onclick="closeModal('stuModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save Student</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View Modal -->
+<div id="viewModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 class="text-lg font-bold text-slate-800">Student Details</h3>
+      <button onclick="closeModal('viewModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <div id="viewBody" class="p-6"></div>
+  </div>
+</div>
+
+<style>.lbl{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}.inp{width:100%;border:1px solid #e2e8f0;border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;outline:none;font-family:inherit}.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.15)}</style>
+<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
+<script>
+const session = buildPage('students.html','Students');
+if(!['admin','registry'].includes(session.role)){toast('Access denied','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
+let editMode=false,editId=null;
+
+function renderTable(){
+  const students=Students.all();
+  const sf=document.getElementById('statusFilter').value;
+  const filtered=sf?students.filter(s=>s.status===sf):students;
+  document.getElementById('stuCount').textContent=`Showing ${filtered.length} of ${students.length} students`;
+  const btn=`<button onclick="viewStu('{id}')" class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg" title="View"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+  <button onclick="editStu('{id}')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg" title="Edit"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+  <button onclick="deleteStu('{id}')" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg" title="Delete"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>`;
+  document.getElementById('stuBody').innerHTML=filtered.length?filtered.map(s=>`<tr class="hover:bg-slate-50 transition-colors">
+    <td class="px-6 py-4"><div class="flex items-center gap-3">
+        <img src="${s.photo || 'https://i.pravatar.cc/150?u='+s.studentId}" class="w-9 h-9 rounded-full object-cover border-2 border-indigo-100 flex-shrink-0" alt="Passport">
+        <div><div class="font-medium text-slate-800">${s.name}</div><div class="text-slate-400 text-xs">${s.email}</div></div></div></td>
+    <td class="px-6 py-4"><span class="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md">${s.studentId}</span></td>
+    <td class="px-6 py-4 text-slate-600 text-sm">${s.program}</td>
+    <td class="px-6 py-4 text-slate-600 text-sm">Year ${s.year}</td>
+    <td class="px-6 py-4 text-slate-600 text-xs font-medium">${s.nationality || '—'}</td>
+    <td class="px-6 py-4">${statusBadge(s.status)}</td>
+    <td class="px-6 py-4"><div class="flex items-center justify-end gap-1">${btn.replaceAll('{id}',s.studentId)}</div></td>
+  </tr>`).join(''):emptyState('No students found');
+}
+
+function openAddModal(){
+  editMode=false;editId=null;
+  document.getElementById('modalTitle').textContent='Add New Student';
+  document.getElementById('stuForm').reset();
+  document.getElementById('f_sid').removeAttribute('readonly');
+  document.getElementById('f_edate').value=new Date().toISOString().split('T')[0];
+  openModal('stuModal');
+}
+
+function editStu(sid){
+  const s=Students.find(sid);if(!s)return;
+  editMode=true;editId=sid;
+  document.getElementById('modalTitle').textContent='Edit Student';
+  document.getElementById('f_sid').value=s.studentId;
+  document.getElementById('f_sid').setAttribute('readonly','true');
+  ['name','email','phone','dob','gender','nat','prog','year','status','edate','addr','photo'].forEach(k=>{
+    const el=document.getElementById('f_'+k);
+    if(el) el.value=s[{name:'name',email:'email',phone:'phone',dob:'dob',gender:'gender',nat:'nationality',prog:'program',year:'year',status:'status',edate:'enrolledDate',addr:'address',photo:'photo'}[k]]||'';
+  });
+  openModal('stuModal');
+}
+
+function viewStu(sid){
+  const s=Students.find(sid),fin=Finance.forStudent(sid),enroll=Enrollments.forStudent(sid),gpa=Results.calcGPA(sid);
+  document.getElementById('viewBody').innerHTML=`
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">${s.name.charAt(0)}</div>
+      <div><div class="text-lg font-bold text-slate-800">${s.name}</div><div class="text-slate-500 text-sm">${s.studentId}</div><div class="mt-1">${statusBadge(s.status)}</div></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3 text-sm">
+      ${[['Program',s.program],['Year','Year '+s.year],['Email',s.email],['Phone',s.phone||'—'],['Gender',s.gender||'—'],['DOB',fmtDate(s.dob)],['Enrolled',fmtDate(s.enrolledDate)],['Courses',enroll.length],['GPA',gpa.gpa||'N/A'],['Fee Balance',fin?fmtCurrency(fin.balance):'—'],['Clearance',fin?(fin.cleared?'✓ Cleared':'Pending'):'—'],['Nationality',s.nationality||'—']].map(([l,v])=>`<div class="bg-slate-50 rounded-xl p-3"><div class="text-xs text-slate-400 mb-0.5">${l}</div><div class="font-medium text-slate-700">${v}</div></div>`).join('')}
+    </div>
+    <div class="mt-4 bg-slate-50 rounded-xl p-3"><div class="text-xs text-slate-400 mb-0.5">Address</div><div class="text-slate-700 text-sm">${s.address||'—'}</div></div>`;
+  openModal('viewModal');
+}
+
+function saveStu(e){
+  e.preventDefault();
+  const data={
+    studentId:document.getElementById('f_sid').value.trim(),
+    name:document.getElementById('f_name').value.trim(),
+    email:document.getElementById('f_email').value.trim(),
+    phone:document.getElementById('f_phone').value.trim(),
+    dob:document.getElementById('f_dob').value,
+    gender:document.getElementById('f_gender').value,
+    nationality:document.getElementById('f_nat').value.trim(),
+    program:document.getElementById('f_prog').value,
+    year:parseInt(document.getElementById('f_year').value),
+    status:document.getElementById('f_status').value,
+    enrolledDate:document.getElementById('f_edate').value,
+    address:document.getElementById('f_addr').value.trim(),
+    photo:document.getElementById('f_photo').value.trim(),
+  };
+  try{
+    if(editMode){Students.update(editId,data);toast('Student updated successfully');}
+    else{Students.create(data);toast('Student added — finance record auto-created');}
+    closeModal('stuModal');renderTable();
+  }catch(err){toast(err.message,'error');}
+}
+
+function deleteStu(sid){
+  if(!confirmDialog('Delete this student? All their enrollments, payments and results will also be removed.'))return;
+  Students.delete(sid);toast('Student deleted','warning');renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>

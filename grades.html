@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grades — Cavendish University Uganda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>*{font-family:'Inter',sans-serif}.sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}.lbl{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}.inp{width:100%;border:1px solid #e2e8f0;border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;outline:none;font-family:inherit}.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.15)}</style>
+</head>
+<body class="bg-slate-50 flex h-screen overflow-hidden">
+<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
+  <main class="flex-1 overflow-y-auto p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div><h2 class="text-xl font-bold text-slate-800">Grades & Results</h2><p class="text-slate-500 text-sm">Enter and manage student grades</p></div>
+      <div class="flex items-center gap-3">
+        <select id="courseFilter" onchange="renderGradeTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-56"></select>
+        <select id="semFilter" onchange="renderGradeTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="2024/1">2024 Sem 1</option><option value="2024/2">2024 Sem 2</option>
+        </select>
+        <button onclick="openGradeModal()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Enter Grade
+        </button>
+      </div>
+    </div>
+
+    <!-- Two-column layout: grade table + GPA panel -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <!-- Grade Table -->
+      <div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div class="px-6 py-4 border-b border-slate-100"><h3 class="font-semibold text-slate-800">Grade Records</h3></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 border-b border-slate-200"><tr>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student</th>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Course</th>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Marks</th>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Grade</th>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Graded By</th>
+              <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Date</th>
+              <th class="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Edit</th>
+            </tr></thead>
+            <tbody id="gradeBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- GPA Panel -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <div class="px-6 py-4 border-b border-slate-100"><h3 class="font-semibold text-slate-800">GPA Lookup</h3></div>
+        <div class="p-6">
+          <div><label class="lbl">Select Student</label>
+            <select id="gpaStudent" onchange="showGPA()" class="inp"><option value="">Choose student…</option></select>
+          </div>
+          <div id="gpaResult" class="mt-5"></div>
+        </div>
+        <!-- Grade Scale Reference -->
+        <div class="px-6 pb-6">
+          <p class="text-xs text-slate-400 font-semibold uppercase mb-3">Grade Scale</p>
+          <div class="space-y-1.5 text-xs">
+            ${[['A+','90–100','4.0'],['A','85–89','4.0'],['A-','80–84','3.7'],['B+','75–79','3.3'],['B','70–74','3.0'],['B-','65–69','2.7'],['C+','60–64','2.3'],['C','55–59','2.0'],['C-','50–54','1.7'],['D','40–49','1.0'],['F','0–39','0.0']].map(([g,r,p])=>`<div class="flex items-center justify-between"><span class="font-mono font-semibold w-8">${g}</span><span class="text-slate-400 flex-1">${r}</span><span class="text-slate-600 font-medium">${p} pts</span></div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Grade Entry Modal -->
+<div id="gradeModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <h3 id="gradeModalTitle" class="text-lg font-bold text-slate-800">Enter Grade</h3>
+      <button onclick="closeModal('gradeModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <form id="gradeForm" onsubmit="saveGrade(event)" class="p-6 space-y-4">
+      <div><label class="lbl">Student *</label><select id="g_student" required class="inp"><option value="">Select…</option></select></div>
+      <div><label class="lbl">Course *</label><select id="g_course" required class="inp"><option value="">Select…</option></select></div>
+      <div><label class="lbl">Semester *</label>
+        <select id="g_sem" required class="inp"><option value="2024/1">2024 Semester 1</option><option value="2024/2">2024 Semester 2</option></select></div>
+      <div><label class="lbl">Marks (0–100) *</label>
+        <input id="g_marks" type="number" min="0" max="100" required class="inp" oninput="previewGrade()"/>
+        <div id="gradePreview" class="mt-2 hidden p-3 bg-slate-50 rounded-xl text-sm font-semibold text-center"></div>
+      </div>
+      <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+        <button type="button" onclick="closeModal('gradeModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save Grade</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
+<script>
+const session = buildPage('grades.html','Grades & Results');
+if(!['admin','lecturer'].includes(session.role)){toast('Access denied','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
+
+function populateCourseFilter(){
+  const sel=document.getElementById('courseFilter');
+  sel.innerHTML='<option value="">All Courses</option>';
+  const courses = session.role==='lecturer' ? Courses.all().filter(c=>c.lecturerId===session.id) : Courses.all();
+  courses.forEach(c=>{const o=document.createElement('option');o.value=c.courseCode;o.textContent=c.courseCode+' — '+c.title;sel.appendChild(o);});
+}
+
+function populateGPAStudents(){
+  const sel=document.getElementById('gpaStudent');
+  sel.innerHTML='<option value="">Choose student…</option>';
+  Students.all().forEach(s=>{const o=document.createElement('option');o.value=s.studentId;o.textContent=s.name;sel.appendChild(o);});
+}
+
+function renderGradeTable(){
+  const cf=document.getElementById('courseFilter').value;
+  const sem=document.getElementById('semFilter').value;
+  let results=Results.all();
+  if(cf) results=results.filter(r=>r.courseCode===cf);
+  if(sem) results=results.filter(r=>r.semester===sem);
+  if(session.role==='lecturer'){
+    const myCodes=Courses.all().filter(c=>c.lecturerId===session.id).map(c=>c.courseCode);
+    results=results.filter(r=>myCodes.includes(r.courseCode));
+  }
+  document.getElementById('gradeBody').innerHTML=results.length?results.map(r=>{
+    const stu=Students.find(r.studentId),cou=Courses.find(r.courseCode),grader=Users.find(r.gradedBy);
+    const marks=r.marks;
+    const barColor=marks>=70?'bg-emerald-500':marks>=50?'bg-amber-500':'bg-red-500';
+    return`<tr class="hover:bg-slate-50 transition-colors">
+      <td class="px-5 py-4"><div class="font-medium text-slate-800 text-sm">${stu?stu.name:r.studentId}</div><div class="text-xs text-slate-400">${r.studentId}</div></td>
+      <td class="px-5 py-4"><div class="font-mono text-xs font-semibold text-slate-700">${r.courseCode}</div><div class="text-xs text-slate-400">${cou?cou.title:''}</div></td>
+      <td class="px-5 py-4">
+        <div class="flex items-center gap-2">
+          <div class="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full ${barColor} rounded-full" style="width:${marks}%"></div></div>
+          <span class="font-semibold text-slate-700 text-sm">${marks}</span>
+        </div>
+      </td>
+      <td class="px-5 py-4"><span class="font-bold text-lg ${gradeColor(r.grade)}">${r.grade}</span></td>
+      <td class="px-5 py-4 text-slate-500 text-xs">${grader?grader.name:'—'}</td>
+      <td class="px-5 py-4 text-slate-400 text-xs">${fmtDate(r.gradedDate)}</td>
+      <td class="px-5 py-4 text-right"><button onclick="editGrade(${r.id})" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button></td>
+    </tr>`;
+  }).join(''):emptyState('No grades entered yet');
+}
+
+function showGPA(){
+  const sid=document.getElementById('gpaStudent').value;
+  const container=document.getElementById('gpaResult');
+  if(!sid){container.innerHTML='';return;}
+  const stu=Students.find(sid);
+  const gpa=Results.calcGPA(sid);
+  const results=Results.forStudent(sid);
+  const gpaN=parseFloat(gpa.gpa);
+  const cls=gpaN>=3.5?'text-emerald-600':gpaN>=2.5?'text-blue-600':gpaN>=1.5?'text-amber-600':'text-red-600';
+  const honor=gpaN>=3.7?'First Class Honours':gpaN>=3.3?'Second Class Upper':gpaN>=2.7?'Second Class Lower':gpaN>=2.0?'Pass':'Fail';
+  container.innerHTML=`
+    <div class="text-center mb-4">
+      <div class="text-5xl font-extrabold ${cls}">${gpa.gpa||'0.00'}</div>
+      <div class="text-slate-500 text-sm mt-1">Cumulative GPA</div>
+      <div class="mt-2 text-xs px-3 py-1 rounded-full inline-block ${gpaN>=2.0?'bg-emerald-100 text-emerald-700':'bg-red-100 text-red-700'} font-semibold">${honor}</div>
+    </div>
+    <div class="space-y-2">
+      ${results.map(r=>{const c=Courses.find(r.courseCode);return`<div class="flex items-center justify-between text-xs p-2 bg-slate-50 rounded-lg"><span class="text-slate-600">${c?c.title:r.courseCode}</span><span class="font-bold ${gradeColor(r.grade)}">${r.grade}</span></div>`;}).join('')}
+    </div>
+    ${results.length?`<div class="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between"><span>Total Credit Hours</span><span class="font-semibold">${gpa.totalCredits||0}</span></div>`:''}`;
+}
+
+function openGradeModal(){
+  document.getElementById('gradeForm').reset();
+  document.getElementById('gradePreview').classList.add('hidden');
+  document.getElementById('gradeModalTitle').textContent='Enter Grade';
+  // Populate students
+  const sSel=document.getElementById('g_student');
+  sSel.innerHTML='<option value="">Select…</option>';
+  Students.all().forEach(s=>{const o=document.createElement('option');o.value=s.studentId;o.textContent=`${s.name} (${s.studentId})`;sSel.appendChild(o);});
+  // Populate courses
+  const cSel=document.getElementById('g_course');
+  cSel.innerHTML='<option value="">Select…</option>';
+  const courses=session.role==='lecturer'?Courses.all().filter(c=>c.lecturerId===session.id):Courses.all();
+  courses.forEach(c=>{const o=document.createElement('option');o.value=c.courseCode;o.textContent=`${c.courseCode} — ${c.title}`;cSel.appendChild(o);});
+  openModal('gradeModal');
+}
+
+function editGrade(id){
+  const r=Results.all().find(x=>x.id===id);if(!r)return;
+  openGradeModal();
+  setTimeout(()=>{
+    document.getElementById('gradeModalTitle').textContent='Update Grade';
+    document.getElementById('g_student').value=r.studentId;
+    document.getElementById('g_course').value=r.courseCode;
+    document.getElementById('g_sem').value=r.semester;
+    document.getElementById('g_marks').value=r.marks;
+    previewGrade();
+  },50);
+}
+
+function previewGrade(){
+  const m=parseInt(document.getElementById('g_marks').value);
+  const prev=document.getElementById('gradePreview');
+  if(isNaN(m)||m<0||m>100){prev.classList.add('hidden');return;}
+  const grade=marksToGrade(m);
+  const pts=GRADE_MAP[grade];
+  prev.className=`mt-2 p-3 rounded-xl text-sm font-semibold text-center ${m>=70?'bg-emerald-50 text-emerald-700':m>=50?'bg-amber-50 text-amber-700':'bg-red-50 text-red-700'}`;
+  prev.textContent=`Grade: ${grade} (${pts} points)`;
+  prev.classList.remove('hidden');
+}
+
+function saveGrade(e){
+  e.preventDefault();
+  const data={studentId:document.getElementById('g_student').value,courseCode:document.getElementById('g_course').value,semester:document.getElementById('g_sem').value,marks:parseInt(document.getElementById('g_marks').value),gradedBy:session.id};
+  Results.upsert(data);
+  toast('Grade saved successfully');
+  closeModal('gradeModal');renderGradeTable();
+}
+
+populateCourseFilter();populateGPAStudents();renderGradeTable();
+</script>
+</body>
+</html>
