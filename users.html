@@ -1,203 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users — Cavendish University Uganda</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>*{font-family:'Inter',sans-serif}.sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}.lbl{display:block;font-size:.875rem;font-weight:500;color:#374151;margin-bottom:.25rem}.inp{width:100%;border:1px solid #e2e8f0;border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;outline:none;font-family:inherit}.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.15)}</style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      font-family: 'Inter', sans-serif
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px
+    }
+
+    .lbl {
+      display: block;
+      font-size: .875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: .25rem
+    }
+
+    .inp {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: .75rem;
+      padding: .625rem 1rem;
+      font-size: .875rem;
+      outline: none;
+      font-family: inherit
+    }
+
+    .inp:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, .15)
+    }
+  </style>
 </head>
+
 <body class="bg-slate-50 flex h-screen overflow-hidden">
-<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
-<div class="flex-1 flex flex-col overflow-hidden">
-  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
-  <main class="flex-1 overflow-y-auto p-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-      <div><h2 class="text-xl font-bold text-slate-800">User Management</h2><p class="text-slate-500 text-sm">Manage system accounts and roles</p></div>
-      <div class="flex items-center gap-3">
-        <select id="roleFilter" onchange="renderTable()" class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          <option value="">All Roles</option><option value="admin">Administrator</option><option value="registry">Registry</option><option value="finance">Finance</option><option value="lecturer">Lecturer</option><option value="student">Student</option>
-        </select>
-        <div class="relative"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
-          <input type="text" placeholder="Search users…" oninput="filterTable('usrTable',this.value)" class="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white w-44"/></div>
-        <button onclick="openAdd()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Add User
-        </button>
-      </div>
-    </div>
-
-    <!-- Role stat pills -->
-    <div class="flex flex-wrap gap-3 mb-6" id="roleStats"></div>
-
-    <!-- Table -->
-    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-      <div class="overflow-x-auto">
-        <table id="usrTable" class="w-full text-sm">
-          <thead class="bg-slate-50 border-b border-slate-200"><tr>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">User</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Username</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Role</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student ID</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Created</th>
-            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
-            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Actions</th>
-          </tr></thead>
-          <tbody id="usrBody" class="divide-y divide-slate-100"></tbody>
-        </table>
-      </div>
-      <div id="usrCount" class="px-6 py-3 border-t border-slate-100 text-xs text-slate-400 bg-slate-50"></div>
-    </div>
-  </main>
-</div>
-
-<!-- Add/Edit Modal -->
-<div id="usrModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
-      <h3 id="usrModalTitle" class="text-lg font-bold text-slate-800">Add User</h3>
-      <button onclick="closeModal('usrModal')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <form id="usrForm" onsubmit="saveUser(event)" class="p-6 space-y-4">
-      <div><label class="lbl">Full Name *</label><input id="u_name" type="text" required class="inp" placeholder="e.g. Dr. Jane Doe"/></div>
-      <div><label class="lbl">Username *</label><input id="u_username" type="text" required class="inp" placeholder="Unique login username"/></div>
-      <div><label class="lbl">Password *</label>
-        <div class="relative"><input id="u_password" type="password" required class="inp pr-10" placeholder="Min 6 characters"/>
-          <button type="button" onclick="togglePwd('u_password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+  <div id="sidebar-wrapper"
+    class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+    <div id="sidebar"></div>
+  </div>
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm">
+      <div id="topbar" class="flex items-center justify-between w-full"></div>
+    </header>
+    <main class="flex-1 overflow-y-auto p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-slate-800">User Management</h2>
+          <p class="text-slate-500 text-sm">Manage system accounts and roles</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <select id="roleFilter" onchange="renderTable()"
+            class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="">All Roles</option>
+            <option value="admin">Administrator</option>
+            <option value="registry">Registry</option>
+            <option value="finance">Finance</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="student">Student</option>
+          </select>
+          <div class="relative"><svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0" />
+            </svg>
+            <input type="text" placeholder="Search users…" oninput="filterTable('usrTable',this.value)"
+              class="pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white w-44" />
+          </div>
+          <button onclick="openAdd()"
+            class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>Add User
           </button>
         </div>
       </div>
-      <div><label class="lbl">Role *</label>
-        <select id="u_role" required class="inp" onchange="toggleStudentID()">
-          <option value="">Select role</option><option value="admin">Administrator</option><option value="registry">Registry Staff</option><option value="finance">Finance Staff</option><option value="lecturer">Lecturer</option><option value="student">Student</option>
-        </select>
+
+      <!-- Role stat pills -->
+      <div class="flex flex-wrap gap-3 mb-6" id="roleStats"></div>
+
+      <!-- Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table id="usrTable" class="w-full text-sm">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">User</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Username</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Role</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Student ID</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Created</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Status</th>
+                <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usrBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+        <div id="usrCount" class="px-6 py-3 border-t border-slate-100 text-xs text-slate-400 bg-slate-50"></div>
       </div>
-      <div id="stuIdRow" class="hidden"><label class="lbl">Student ID (for Student role)</label>
-        <select id="u_stuId" class="inp"><option value="">Link to student…</option></select>
-      </div>
-      <div><label class="lbl">Status</label>
-        <select id="u_active" class="inp"><option value="true">Active</option><option value="false">Inactive</option></select>
-      </div>
-      <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
-        <button type="button" onclick="closeModal('usrModal')" class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
-        <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save User</button>
-      </div>
-    </form>
+    </main>
   </div>
-</div>
 
-<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
-<script>
-const session = buildPage('users.html','User Management');
-if(session.role!=='admin'){toast('Admin access required','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
-let editMode=false,editId=null;
+  <!-- Add/Edit Modal -->
+  <div id="usrModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+      <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+        <h3 id="usrModalTitle" class="text-lg font-bold text-slate-800">Add User</h3>
+        <button onclick="closeModal('usrModal')"
+          class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100"><svg class="w-5 h-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg></button>
+      </div>
+      <form id="usrForm" onsubmit="saveUser(event)" class="p-6 space-y-4">
+        <div><label class="lbl">Full Name *</label><input id="u_name" type="text" required class="inp"
+            placeholder="e.g. Dr. Jane Doe" /></div>
+        <div><label class="lbl">Username *</label><input id="u_username" type="text" required class="inp"
+            placeholder="Unique login username" /></div>
+        <div><label class="lbl">Password *</label>
+          <div class="relative"><input id="u_password" type="password" required class="inp pr-10"
+              placeholder="Min 6 characters" />
+            <button type="button" onclick="togglePwd('u_password')"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div><label class="lbl">Role *</label>
+          <select id="u_role" required class="inp" onchange="toggleStudentID()">
+            <option value="">Select role</option>
+            <option value="admin">Administrator</option>
+            <option value="registry">Registry Staff</option>
+            <option value="finance">Finance Staff</option>
+            <option value="lecturer">Lecturer</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <div id="stuIdRow" class="hidden"><label class="lbl">Student ID (for Student role)</label>
+          <select id="u_stuId" class="inp">
+            <option value="">Link to student…</option>
+          </select>
+        </div>
+        <div><label class="lbl">Status</label>
+          <select id="u_active" class="inp">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-3 pt-2 border-t border-slate-100">
+          <button type="button" onclick="closeModal('usrModal')"
+            class="px-5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
+          <button type="submit"
+            class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium">Save
+            User</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-const ROLE_LABELS={admin:'Administrator',registry:'Registry Staff',finance:'Finance Officer',lecturer:'Lecturer',student:'Student'};
-const ROLE_COLORS={admin:'bg-purple-100 text-purple-700',registry:'bg-blue-100 text-blue-700',finance:'bg-emerald-100 text-emerald-700',lecturer:'bg-amber-100 text-amber-700',student:'bg-slate-100 text-slate-700'};
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    const session = buildPage('users.html', 'User Management');
+    if (session.role !== 'admin') { toast('Admin access required', 'error'); setTimeout(() => window.location.href = 'dashboard.html', 1500); }
+    let editMode = false, editId = null;
 
-function renderStats(){
-  const users=Users.all();
-  const roles=['admin','registry','finance','lecturer','student'];
-  document.getElementById('roleStats').innerHTML=roles.map(r=>{
-    const count=users.filter(u=>u.role===r).length;
-    return`<div class="flex items-center gap-2 px-4 py-2 rounded-xl ${ROLE_COLORS[r]} text-sm font-medium"><span>${ROLE_LABELS[r]}</span><span class="bg-white/60 text-xs px-2 py-0.5 rounded-full font-bold">${count}</span></div>`;
-  }).join('');
-}
+    const ROLE_LABELS = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student' };
+    const ROLE_COLORS = { admin: 'bg-purple-100 text-purple-700', registry: 'bg-blue-100 text-blue-700', finance: 'bg-emerald-100 text-emerald-700', lecturer: 'bg-amber-100 text-amber-700', student: 'bg-slate-100 text-slate-700' };
 
-function renderTable(){
-  const rf=document.getElementById('roleFilter').value;
-  const users=rf?Users.all().filter(u=>u.role===rf):Users.all();
-  document.getElementById('usrCount').textContent=`${users.length} user(s)`;
-  document.getElementById('usrBody').innerHTML=users.length?users.map(u=>`
+    function renderStats() {
+      const users = Users.all();
+      const roles = ['admin', 'registry', 'finance', 'lecturer', 'student'];
+      document.getElementById('roleStats').innerHTML = roles.map(r => {
+        const count = users.filter(u => u.role === r).length;
+        return `<div class="flex items-center gap-2 px-4 py-2 rounded-xl ${ROLE_COLORS[r]} text-sm font-medium"><span>${ROLE_LABELS[r]}</span><span class="bg-white/60 text-xs px-2 py-0.5 rounded-full font-bold">${count}</span></div>`;
+      }).join('');
+    }
+
+    function renderTable() {
+      const rf = document.getElementById('roleFilter').value;
+      const users = rf ? Users.all().filter(u => u.role === rf) : Users.all();
+      document.getElementById('usrCount').textContent = `${users.length} user(s)`;
+      document.getElementById('usrBody').innerHTML = users.length ? users.map(u => `
     <tr class="hover:bg-slate-50 transition-colors">
       <td class="px-6 py-4"><div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-sm">${u.name.charAt(0)}</div>
         <div class="font-medium text-slate-800">${u.name}</div></div></td>
       <td class="px-6 py-4"><span class="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md">${u.username}</span></td>
-      <td class="px-6 py-4"><span class="text-xs px-2.5 py-1 rounded-full font-medium ${ROLE_COLORS[u.role]||''}">${ROLE_LABELS[u.role]||u.role}</span></td>
-      <td class="px-6 py-4 text-slate-400 text-xs font-mono">${u.studentId||'—'}</td>
+      <td class="px-6 py-4"><span class="text-xs px-2.5 py-1 rounded-full font-medium ${ROLE_COLORS[u.role] || ''}">${ROLE_LABELS[u.role] || u.role}</span></td>
+      <td class="px-6 py-4 text-slate-400 text-xs font-mono">${u.studentId || '—'}</td>
       <td class="px-6 py-4 text-slate-400 text-xs">${fmtDate(u.createdAt)}</td>
-      <td class="px-6 py-4">${u.active!==false?'<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Active</span>':'<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700"><span class="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span>Inactive</span>'}</td>
+      <td class="px-6 py-4">${u.active !== false ? '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Active</span>' : '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700"><span class="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span>Inactive</span>'}</td>
       <td class="px-6 py-4 text-right">
-        ${u.id!==session.id?`
+        ${u.id !== session.id ? `
         <button onclick="editUser(${u.id})" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg mr-1"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-        <button onclick="toggleActive(${u.id},${u.active!==false})" class="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg mr-1" title="${u.active!==false?'Deactivate':'Activate'}"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg></button>
+        <button onclick="toggleActive(${u.id},${u.active !== false})" class="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg mr-1" title="${u.active !== false ? 'Deactivate' : 'Activate'}"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg></button>
         <button onclick="deleteUser(${u.id})" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>`
-        :'<span class="text-xs text-slate-300 italic">Current user</span>'}
+          : '<span class="text-xs text-slate-300 italic">Current user</span>'}
       </td>
-    </tr>`).join(''):emptyState('No users found');
-}
+    </tr>`).join('') : emptyState('No users found');
+    }
 
-function toggleStudentID(){
-  const role=document.getElementById('u_role').value;
-  const row=document.getElementById('stuIdRow');
-  if(role==='student'){
-    row.classList.remove('hidden');
-    const sel=document.getElementById('u_stuId');
-    sel.innerHTML='<option value="">Link to student…</option>';
-    Students.all().forEach(s=>{const o=document.createElement('option');o.value=s.studentId;o.textContent=`${s.name} (${s.studentId})`;sel.appendChild(o);});
-  } else row.classList.add('hidden');
-}
+    function toggleStudentID() {
+      const role = document.getElementById('u_role').value;
+      const row = document.getElementById('stuIdRow');
+      if (role === 'student') {
+        row.classList.remove('hidden');
+        const sel = document.getElementById('u_stuId');
+        sel.innerHTML = '<option value="">Link to student…</option>';
+        Students.all().forEach(s => { const o = document.createElement('option'); o.value = s.studentId; o.textContent = `${s.name} (${s.studentId})`; sel.appendChild(o); });
+      } else row.classList.add('hidden');
+    }
 
-function togglePwd(id){const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';}
+    function togglePwd(id) { const el = document.getElementById(id); el.type = el.type === 'password' ? 'text' : 'password'; }
 
-function openAdd(){
-  editMode=false;editId=null;
-  document.getElementById('usrModalTitle').textContent='Add New User';
-  document.getElementById('usrForm').reset();
-  document.getElementById('stuIdRow').classList.add('hidden');
-  document.getElementById('u_password').required=true;
-  openModal('usrModal');
-}
+    function openAdd() {
+      editMode = false; editId = null;
+      document.getElementById('usrModalTitle').textContent = 'Add New User';
+      document.getElementById('usrForm').reset();
+      document.getElementById('stuIdRow').classList.add('hidden');
+      document.getElementById('u_password').required = true;
+      openModal('usrModal');
+    }
 
-function editUser(id){
-  const u=Users.find(id);if(!u)return;
-  editMode=true;editId=id;
-  document.getElementById('usrModalTitle').textContent='Edit User';
-  document.getElementById('u_name').value=u.name;
-  document.getElementById('u_username').value=u.username;
-  document.getElementById('u_password').value='';
-  document.getElementById('u_password').required=false;
-  document.getElementById('u_password').placeholder='Leave blank to keep current password';
-  document.getElementById('u_role').value=u.role;
-  document.getElementById('u_active').value=u.active!==false?'true':'false';
-  toggleStudentID();
-  if(u.studentId) document.getElementById('u_stuId').value=u.studentId;
-  openModal('usrModal');
-}
+    function editUser(id) {
+      const u = Users.find(id); if (!u) return;
+      editMode = true; editId = id;
+      document.getElementById('usrModalTitle').textContent = 'Edit User';
+      document.getElementById('u_name').value = u.name;
+      document.getElementById('u_username').value = u.username;
+      document.getElementById('u_password').value = '';
+      document.getElementById('u_password').required = false;
+      document.getElementById('u_password').placeholder = 'Leave blank to keep current password';
+      document.getElementById('u_role').value = u.role;
+      document.getElementById('u_active').value = u.active !== false ? 'true' : 'false';
+      toggleStudentID();
+      if (u.studentId) document.getElementById('u_stuId').value = u.studentId;
+      openModal('usrModal');
+    }
 
-function saveUser(e){
-  e.preventDefault();
-  const pwd=document.getElementById('u_password').value;
-  const role=document.getElementById('u_role').value;
-  const data={
-    name:document.getElementById('u_name').value.trim(),
-    username:document.getElementById('u_username').value.trim(),
-    role,
-    active:document.getElementById('u_active').value==='true',
-    studentId:role==='student'?document.getElementById('u_stuId').value||null:null,
-  };
-  if(pwd) data.password=pwd;
-  try{
-    if(editMode){Users.update(editId,data);toast('User updated');}
-    else{if(!pwd||pwd.length<6){toast('Password must be at least 6 characters','error');return;}Users.create({...data,password:pwd});toast('User created');}
-    closeModal('usrModal');renderTable();renderStats();
-  }catch(err){toast(err.message,'error');}
-}
+    function saveUser(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('u_password').value;
+      const role = document.getElementById('u_role').value;
+      const data = {
+        name: document.getElementById('u_name').value.trim(),
+        username: document.getElementById('u_username').value.trim(),
+        role,
+        active: document.getElementById('u_active').value === 'true',
+        studentId: role === 'student' ? document.getElementById('u_stuId').value || null : null,
+      };
+      if (pwd) data.password = pwd;
+      try {
+        if (editMode) { Users.update(editId, data); toast('User updated'); }
+        else { if (!pwd || pwd.length < 6) { toast('Password must be at least 6 characters', 'error'); return; } Users.create({ ...data, password: pwd }); toast('User created'); }
+        closeModal('usrModal'); renderTable(); renderStats();
+      } catch (err) { toast(err.message, 'error'); }
+    }
 
-function toggleActive(id,current){
-  Users.update(id,{active:!current});
-  toast(!current?'User activated':'User deactivated','info');
-  renderTable();renderStats();
-}
+    function toggleActive(id, current) {
+      Users.update(id, { active: !current });
+      toast(!current ? 'User activated' : 'User deactivated', 'info');
+      renderTable(); renderStats();
+    }
 
-function deleteUser(id){
-  if(id===session.id){toast('Cannot delete your own account','error');return;}
-  if(!confirmDialog('Delete this user account?'))return;
-  Users.delete(id);toast('User deleted','warning');renderTable();renderStats();
-}
+    function deleteUser(id) {
+      if (id === session.id) { toast('Cannot delete your own account', 'error'); return; }
+      if (!confirmDialog('Delete this user account?')) return;
+      Users.delete(id); toast('User deleted', 'warning'); renderTable(); renderStats();
+    }
 
-renderStats();renderTable();
-</script>
+    renderStats(); renderTable();
+  </script>
 </body>
+
 </html>

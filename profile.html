@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Profile — Cavendish University Uganda</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    *{font-family:'Inter',sans-serif}
-    .sidebar-scroll::-webkit-scrollbar{width:4px}.sidebar-scroll::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}
-    @media print{#sidebar-wrapper,header,.no-print{display:none!important}body{background:white}.print-box{border:1px solid #e2e8f0!important}}
+    * {
+      font-family: 'Inter', sans-serif
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px
+    }
+
+    @media print {
+
+      #sidebar-wrapper,
+      header,
+      .no-print {
+        display: none !important
+      }
+
+      body {
+        background: white
+      }
+
+      .print-box {
+        border: 1px solid #e2e8f0 !important
+      }
+    }
   </style>
 </head>
+
 <body class="bg-slate-50 flex h-screen overflow-hidden">
-<div id="sidebar-wrapper" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto"><div id="sidebar"></div></div>
-<div class="flex-1 flex flex-col overflow-hidden">
-  <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm"><div id="topbar" class="flex items-center justify-between w-full"></div></header>
-  <main class="flex-1 overflow-y-auto p-6" id="mainContent">
-    <!-- Rendered by JS -->
-  </main>
-</div>
+  <div id="sidebar-wrapper"
+    class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+    <div id="sidebar"></div>
+  </div>
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm">
+      <div id="topbar" class="flex items-center justify-between w-full"></div>
+    </header>
+    <main class="flex-1 overflow-y-auto p-6" id="mainContent">
+      <!-- Rendered by JS -->
+    </main>
+  </div>
 
-<script src="js/db.js"></script><script src="js/auth.js"></script><script src="js/utils.js"></script>
-<script>
-const session = buildPage('profile.html', 'My Profile');
-if(session.role !== 'student'){toast('Student access only','error');setTimeout(()=>window.location.href='dashboard.html',1500);}
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    const session = buildPage('profile.html', 'My Profile');
+    if (session.role !== 'student') { toast('Student access only', 'error'); setTimeout(() => window.location.href = 'dashboard.html', 1500); }
 
-function render(){
-  const sid = session.studentId;
-  const stu = Students.find(sid);
-  const fin = Finance.forStudent(sid);
-  const enrollments = Enrollments.forStudent(sid);
-  const results = Results.forStudent(sid);
-  const payments = Payments.forStudent(sid);
-  const gpaData = Results.calcGPA(sid);
-  const gpa = parseFloat(gpaData.gpa || 0);
-  const courses = Courses.all();
+    function render() {
+      const sid = session.studentId;
+      const stu = Students.find(sid);
+      const fin = Finance.forStudent(sid);
+      const enrollments = Enrollments.forStudent(sid);
+      const results = Results.forStudent(sid);
+      const payments = Payments.forStudent(sid);
+      const gpaData = Results.calcGPA(sid);
+      const gpa = parseFloat(gpaData.gpa || 0);
+      const courses = Courses.all();
 
-  const honor = gpa>=3.7?'First Class Honours':gpa>=3.3?'Second Class Upper':gpa>=2.7?'Second Class Lower':gpa>=2.0?'Pass':'Fail';
-  const gpaColor = gpa>=3.5?'text-emerald-600':gpa>=2.5?'text-blue-600':gpa>=1.5?'text-amber-600':'text-red-600';
+      const honor = gpa >= 3.7 ? 'First Class Honours' : gpa >= 3.3 ? 'Second Class Upper' : gpa >= 2.7 ? 'Second Class Lower' : gpa >= 2.0 ? 'Pass' : 'Fail';
+      const gpaColor = gpa >= 3.5 ? 'text-emerald-600' : gpa >= 2.5 ? 'text-blue-600' : gpa >= 1.5 ? 'text-amber-600' : 'text-red-600';
 
-  document.getElementById('mainContent').innerHTML = `
+      document.getElementById('mainContent').innerHTML = `
     <div class="hidden print:flex flex-col items-center mb-8 text-center border-b pb-6">
       <img src="https://www.cavendish.ac.ug/wp-content/themes/cavendish/assets/img/logo.png" alt="CUU Logo" class="w-32 h-auto mb-4 object-contain">
       <h1 class="text-3xl font-extrabold uppercase tracking-tight text-slate-900">Cavendish University Uganda</h1>
       <p class="text-sm text-slate-500 font-medium mt-1">Official Academic Transcript</p>
-      <p class="text-xs text-slate-400">Generated: ${new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'})}</p>
+      <p class="text-xs text-slate-400">Generated: ${new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
     </div>
 
     <!-- Top Actions -->
@@ -64,23 +100,23 @@ function render(){
         </div>
         <div class="flex flex-col items-center text-center mb-6">
           <div class="relative mb-4">
-            <img src="${stu.photo || 'https://i.pravatar.cc/150?u='+sid}" class="w-32 h-32 rounded-2xl object-cover border-4 border-white shadow-xl ring-1 ring-slate-200" alt="Passport Photo">
+            <img src="${stu.photo || 'https://i.pravatar.cc/150?u=' + sid}" class="w-32 h-32 rounded-2xl object-cover border-4 border-white shadow-xl ring-1 ring-slate-200" alt="Passport Photo">
             <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center border-4 border-white">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.64.304 1.24.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
             </div>
           </div>
-          <h3 class="text-xl font-bold text-slate-800">${stu?stu.name:'—'}</h3>
+          <h3 class="text-xl font-bold text-slate-800">${stu ? stu.name : '—'}</h3>
           <p class="text-slate-500 text-sm font-mono tracking-wider">${sid}</p>
-          <div class="mt-3">${statusBadge(stu?stu.status:'inactive')}</div>
+          <div class="mt-3">${statusBadge(stu ? stu.status : 'inactive')}</div>
         </div>
         <div class="space-y-3 text-sm">
-          ${[['Program', stu?stu.program:'—'],['Year of Study','Year '+(stu?stu.year:'?')],['Email',stu?stu.email:'—'],['Phone',stu?stu.phone||'—':'—'],['Gender',stu?stu.gender||'—':'—'],['Nationality',stu?stu.nationality||'—':'—'],['Date of Birth',fmtDate(stu?stu.dob:null)],['Enrolled',fmtDate(stu?stu.enrolledDate:null)]].map(([l,v])=>`
+          ${[['Program', stu ? stu.program : '—'], ['Year of Study', 'Year ' + (stu ? stu.year : '?')], ['Email', stu ? stu.email : '—'], ['Phone', stu ? stu.phone || '—' : '—'], ['Gender', stu ? stu.gender || '—' : '—'], ['Nationality', stu ? stu.nationality || '—' : '—'], ['Date of Birth', fmtDate(stu ? stu.dob : null)], ['Enrolled', fmtDate(stu ? stu.enrolledDate : null)]].map(([l, v]) => `
           <div class="flex justify-between items-start gap-2">
             <span class="text-slate-400 flex-shrink-0">${l}</span>
             <span class="font-medium text-slate-700 text-right">${v}</span>
           </div>`).join('')}
         </div>
-        ${stu&&stu.address?`<div class="mt-4 pt-4 border-t border-slate-100 text-sm"><span class="text-slate-400 block mb-1">Address</span><span class="text-slate-700">${stu.address}</span></div>`:''}
+        ${stu && stu.address ? `<div class="mt-4 pt-4 border-t border-slate-100 text-sm"><span class="text-slate-400 block mb-1">Address</span><span class="text-slate-700">${stu.address}</span></div>` : ''}
       </div>
 
       <!-- GPA + Finance -->
@@ -92,12 +128,12 @@ function render(){
             <div class="text-center">
               <div class="text-5xl font-extrabold ${gpaColor}">${gpa.toFixed(2)}</div>
               <div class="text-slate-500 text-xs mt-1">Cumulative GPA</div>
-              <div class="mt-2 text-xs px-3 py-1 rounded-full inline-block ${gpa>=2.0?'bg-emerald-100 text-emerald-700':'bg-red-100 text-red-700'} font-semibold">${honor}</div>
+              <div class="mt-2 text-xs px-3 py-1 rounded-full inline-block ${gpa >= 2.0 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'} font-semibold">${honor}</div>
             </div>
             <div class="flex-1 grid grid-cols-3 gap-3">
               <div class="bg-indigo-50 rounded-xl p-3 text-center"><div class="text-xl font-bold text-indigo-700">${enrollments.length}</div><div class="text-xs text-indigo-500">Enrolled</div></div>
               <div class="bg-emerald-50 rounded-xl p-3 text-center"><div class="text-xl font-bold text-emerald-700">${results.length}</div><div class="text-xs text-emerald-500">Graded</div></div>
-              <div class="bg-purple-50 rounded-xl p-3 text-center"><div class="text-xl font-bold text-purple-700">${gpaData.totalCredits||0}</div><div class="text-xs text-purple-500">Credits</div></div>
+              <div class="bg-purple-50 rounded-xl p-3 text-center"><div class="text-xl font-bold text-purple-700">${gpaData.totalCredits || 0}</div><div class="text-xs text-purple-500">Credits</div></div>
             </div>
           </div>
         </div>
@@ -106,16 +142,16 @@ function render(){
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 print-box">
           <div class="flex items-center justify-between mb-4">
             <h3 class="font-semibold text-slate-800">Financial Status</h3>
-            ${fin?clearanceBadge(fin.cleared):''}
+            ${fin ? clearanceBadge(fin.cleared) : ''}
           </div>
-          ${fin?`
+          ${fin ? `
           <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="bg-blue-50 rounded-xl p-3 text-center"><div class="text-lg font-bold text-blue-700">${fmtCurrency(fin.totalFees)}</div><div class="text-xs text-blue-500">Total Fees</div></div>
             <div class="bg-emerald-50 rounded-xl p-3 text-center"><div class="text-lg font-bold text-emerald-700">${fmtCurrency(fin.amountPaid)}</div><div class="text-xs text-emerald-500">Amount Paid</div></div>
             <div class="bg-red-50 rounded-xl p-3 text-center"><div class="text-lg font-bold text-red-700">${fmtCurrency(fin.balance)}</div><div class="text-xs text-red-500">Balance</div></div>
           </div>
-          <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:${fin.totalFees>0?Math.round(fin.amountPaid/fin.totalFees*100):0}%"></div></div>
-          <div class="text-xs text-slate-400 mt-1">${fin.totalFees>0?Math.round(fin.amountPaid/fin.totalFees*100):0}% of fees paid</div>`:'<p class="text-slate-400 text-sm">No finance record found.</p>'}
+          <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:${fin.totalFees > 0 ? Math.round(fin.amountPaid / fin.totalFees * 100) : 0}%"></div></div>
+          <div class="text-xs text-slate-400 mt-1">${fin.totalFees > 0 ? Math.round(fin.amountPaid / fin.totalFees * 100) : 0}% of fees paid</div>` : '<p class="text-slate-400 text-sm">No finance record found.</p>'}
         </div>
       </div>
     </div>
@@ -124,7 +160,7 @@ function render(){
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6 print-box">
       <div class="px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-indigo-50 to-purple-50">
         <h3 class="font-semibold text-slate-800">Academic Transcript</h3>
-        <p class="text-xs text-slate-400 mt-0.5">Semester: 2024/1 · Programme: ${stu?stu.program:'—'}</p>
+        <p class="text-xs text-slate-400 mt-0.5">Semester: 2024/1 · Programme: ${stu ? stu.program : '—'}</p>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -137,28 +173,28 @@ function render(){
             <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Points</th>
           </tr></thead>
           <tbody class="divide-y divide-slate-100">
-            ${enrollments.length?enrollments.map(e=>{
-              const co = courses.find(c=>c.courseCode===e.courseCode);
-              const res = results.find(r=>r.courseCode===e.courseCode&&r.semester===e.semester);
-              const pts = res ? (GRADE_MAP[res.grade]||0)*((co?co.creditUnits:3)) : null;
-              return`<tr class="hover:bg-slate-50">
+            ${enrollments.length ? enrollments.map(e => {
+        const co = courses.find(c => c.courseCode === e.courseCode);
+        const res = results.find(r => r.courseCode === e.courseCode && r.semester === e.semester);
+        const pts = res ? (GRADE_MAP[res.grade] || 0) * ((co ? co.creditUnits : 3)) : null;
+        return `<tr class="hover:bg-slate-50">
                 <td class="px-6 py-4"><span class="font-mono text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded-md font-semibold">${e.courseCode}</span></td>
-                <td class="px-6 py-4 font-medium text-slate-800">${co?co.title:e.courseCode}</td>
-                <td class="px-6 py-4 text-slate-600">${co?co.creditUnits:'—'}</td>
-                <td class="px-6 py-4">${res?`<div class="flex items-center gap-2"><div class="w-12 h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full ${res.marks>=70?'bg-emerald-500':res.marks>=50?'bg-amber-500':'bg-red-500'} rounded-full" style="width:${res.marks}%"></div></div><span class="font-semibold text-slate-700">${res.marks}</span></div>`:'<span class="text-slate-300">Pending</span>'}</td>
-                <td class="px-6 py-4"><span class="text-xl font-extrabold ${res?gradeColor(res.grade):'text-slate-300'}">${res?res.grade:'—'}</span></td>
-                <td class="px-6 py-4 text-slate-600 font-medium">${pts!==null?pts.toFixed(1):'—'}</td>
+                <td class="px-6 py-4 font-medium text-slate-800">${co ? co.title : e.courseCode}</td>
+                <td class="px-6 py-4 text-slate-600">${co ? co.creditUnits : '—'}</td>
+                <td class="px-6 py-4">${res ? `<div class="flex items-center gap-2"><div class="w-12 h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full ${res.marks >= 70 ? 'bg-emerald-500' : res.marks >= 50 ? 'bg-amber-500' : 'bg-red-500'} rounded-full" style="width:${res.marks}%"></div></div><span class="font-semibold text-slate-700">${res.marks}</span></div>` : '<span class="text-slate-300">Pending</span>'}</td>
+                <td class="px-6 py-4"><span class="text-xl font-extrabold ${res ? gradeColor(res.grade) : 'text-slate-300'}">${res ? res.grade : '—'}</span></td>
+                <td class="px-6 py-4 text-slate-600 font-medium">${pts !== null ? pts.toFixed(1) : '—'}</td>
               </tr>`;
-            }).join(''):emptyState('No enrollments found')}
+      }).join('') : emptyState('No enrollments found')}
           </tbody>
-          ${enrollments.length?`<tfoot class="bg-slate-50 border-t-2 border-slate-200">
+          ${enrollments.length ? `<tfoot class="bg-slate-50 border-t-2 border-slate-200">
             <tr><td colspan="2" class="px-6 py-3 font-semibold text-slate-700 text-sm">SUMMARY</td>
-            <td class="px-6 py-3 font-bold text-slate-800">${gpaData.totalCredits||0} cr</td>
+            <td class="px-6 py-3 font-bold text-slate-800">${gpaData.totalCredits || 0} cr</td>
             <td class="px-6 py-3"></td>
             <td class="px-6 py-3 font-bold ${gpaColor} text-lg">GPA: ${gpa.toFixed(2)}</td>
             <td class="px-6 py-3 font-bold text-slate-700">${honor}</td>
             </tr>
-          </tfoot>`:''}
+          </tfoot>`: ''}
         </table>
       </div>
     </div>
@@ -195,20 +231,21 @@ function render(){
             <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Notes</th>
           </tr></thead>
           <tbody class="divide-y divide-slate-100">
-            ${payments.length?payments.map(p=>`<tr class="hover:bg-slate-50">
+            ${payments.length ? payments.map(p => `<tr class="hover:bg-slate-50">
               <td class="px-6 py-3"><span class="font-mono text-xs text-slate-500">${p.reference}</span></td>
               <td class="px-6 py-3 font-semibold text-emerald-700">${fmtCurrency(p.amount)}</td>
               <td class="px-6 py-3"><span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md">${p.method}</span></td>
               <td class="px-6 py-3 text-slate-500 text-xs">${fmtDate(p.date)}</td>
-              <td class="px-6 py-3 text-slate-400 text-xs">${p.notes||'—'}</td>
-            </tr>`).join(''):emptyState('No payments recorded')}
+              <td class="px-6 py-3 text-slate-400 text-xs">${p.notes || '—'}</td>
+            </tr>`).join('') : emptyState('No payments recorded')}
           </tbody>
         </table>
       </div>
     </div>`;
-}
+    }
 
-render();
-</script>
+    render();
+  </script>
 </body>
+
 </html>

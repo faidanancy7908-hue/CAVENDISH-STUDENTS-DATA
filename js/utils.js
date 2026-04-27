@@ -8,9 +8,9 @@ function toast(message, type = 'success') {
   const colors = { success: 'bg-emerald-500', error: 'bg-red-500', warning: 'bg-amber-500', info: 'bg-blue-500' };
   const icons = {
     success: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`,
-    error:   `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`,
+    error: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`,
     warning: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>`,
-    info:    `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
+    info: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
   };
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -23,9 +23,9 @@ function toast(message, type = 'success') {
   el.className = `flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl text-white text-sm font-medium ${colors[type]} translate-x-20 opacity-0 transition-all duration-300 max-w-sm`;
   el.innerHTML = `${icons[type]}<span class="flex-1">${message}</span>`;
   container.appendChild(el);
-  requestAnimationFrame(() => { el.classList.remove('translate-x-20','opacity-0'); });
+  requestAnimationFrame(() => { el.classList.remove('translate-x-20', 'opacity-0'); });
   setTimeout(() => {
-    el.classList.add('translate-x-20','opacity-0');
+    el.classList.add('translate-x-20', 'opacity-0');
     setTimeout(() => el.remove(), 300);
   }, 4000);
 }
@@ -39,9 +39,9 @@ function confirmDialog(message) { return window.confirm(message); }
 // ─── Format Helpers ───────────────────────────────────────────
 
 function fmtCurrency(n) { return 'KES ' + Number(n).toLocaleString('en-KE'); }
-function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}) : '—'; }
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'; }
 function roleColor(role) {
-  const map = { admin:'bg-purple-100 text-purple-700', registry:'bg-blue-100 text-blue-700', finance:'bg-green-100 text-green-700', lecturer:'bg-amber-100 text-amber-700', student:'bg-slate-100 text-slate-700' };
+  const map = { admin: 'bg-purple-100 text-purple-700', registry: 'bg-blue-100 text-blue-700', finance: 'bg-green-100 text-green-700', lecturer: 'bg-amber-100 text-amber-700', student: 'bg-slate-100 text-slate-700' };
   return map[role] || 'bg-gray-100 text-gray-700';
 }
 function gradeColor(grade) {
@@ -81,8 +81,8 @@ function renderSidebar(activePage) {
       </a>`;
   }).join('');
 
-  const roleLabels = { admin:'Administrator', registry:'Registry Staff', finance:'Finance Officer', lecturer:'Lecturer', student:'Student' };
-  const roleColors = { admin:'bg-purple-500/20 text-purple-300', registry:'bg-blue-500/20 text-blue-300', finance:'bg-emerald-500/20 text-emerald-300', lecturer:'bg-amber-500/20 text-amber-300', student:'bg-slate-500/20 text-slate-300' };
+  const roleLabels = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student' };
+  const roleColors = { admin: 'bg-purple-500/20 text-purple-300', registry: 'bg-blue-500/20 text-blue-300', finance: 'bg-emerald-500/20 text-emerald-300', lecturer: 'bg-amber-500/20 text-amber-300', student: 'bg-slate-500/20 text-slate-300' };
 
   const sidebar = document.getElementById('sidebar');
   sidebar.innerHTML = `
@@ -134,7 +134,7 @@ function buildPage(activePage, title) {
         </button>
         <div>
           <h1 class="text-lg font-bold text-slate-800">${title}</h1>
-          <p class="text-xs text-slate-400">${new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'})}</p>
+          <p class="text-xs text-slate-400">${new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
         </div>
       </div>
       <div class="flex items-center gap-3">
