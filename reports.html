@@ -35,6 +35,7 @@
       }
     }
   </style>
+<link rel="icon" type="image/png" href="assets/images/logo.png" />
 </head>
 
 <body class="bg-slate-50 flex h-screen overflow-hidden">
@@ -46,7 +47,8 @@
     <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm">
       <div id="topbar" class="flex items-center justify-between w-full"></div>
     </header>
-    <main class="flex-1 overflow-y-auto p-6">
+    <main class="flex-1 overflow-y-auto p-6 relative z-0">
+      <div class="absolute inset-0 z-[-1] pointer-events-none opacity-5 mix-blend-multiply" style="background-image: url('assets/images/logo.png'); background-size: 40%; background-repeat: repeat; background-position: center;"></div>
       <div class="flex items-center justify-between mb-6">
         <div>
           <h2 class="text-xl font-bold text-slate-800">Reports & Analytics</h2>

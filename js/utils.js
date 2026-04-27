@@ -90,8 +90,8 @@ function renderSidebar(activePage) {
       <!-- Logo -->
       <div class="px-6 py-6 border-b border-slate-700/50">
         <div class="flex items-center gap-3 mb-8">
-          <div class="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shadow-lg">
-            <img src="https://www.cavendish.ac.ug/wp-content/themes/cavendish/assets/img/logo.png" alt="CUU Logo" class="w-full h-auto object-contain" onerror="this.src='https://ui-avatars.com/api/?name=CUU&background=6366f1&color=fff'">
+          <div class="w-14 h-14 rounded-xl bg-white p-1 flex items-center justify-center shadow-lg">
+            <img src="assets/images/logo.png" alt="CUU Logo" style="height: 50px; width: auto;" class="object-contain" onerror="this.src='https://ui-avatars.com/api/?name=CUU&background=6366f1&color=fff'">
           </div>
           <div>
             <div class="text-white font-bold text-sm leading-tight uppercase tracking-wider">Cavendish</div>
