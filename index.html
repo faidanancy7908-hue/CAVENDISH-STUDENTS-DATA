@@ -149,88 +149,88 @@
     </header>
 
     <!-- Main Content Grid -->
-    <main class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       
       <!-- Left: Vision & Stats (7 Cols) -->
-      <section class="lg:col-span-7 flex flex-col justify-center space-y-10">
-        <div class="space-y-6">
-          <h2 class="text-6xl lg:text-8xl font-black text-white leading-[0.95] tracking-tighter">
+      <section class="lg:col-span-7 flex flex-col justify-center space-y-8">
+        <div class="space-y-4">
+          <h2 class="text-5xl lg:text-7xl font-black text-white leading-[0.95] tracking-tighter">
             Your Campus,<br />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
               Fully Connected
             </span>
           </h2>
-          <p class="text-slate-300 text-xl leading-relaxed max-w-2xl font-medium border-l-8 border-indigo-500/50 pl-8">
+          <p class="text-slate-300 text-lg leading-relaxed max-w-xl font-medium border-l-4 border-indigo-500/50 pl-6">
             The next generation of academic management. A unified digital ecosystem for records, finance, and success.
           </p>
         </div>
 
-        <div class="grid grid-cols-3 gap-8">
-          <div class="glass rounded-3xl p-6 border-white/5">
-            <div class="text-4xl font-black text-white mb-1">100%</div>
-            <div class="text-indigo-400 text-[10px] font-black uppercase tracking-widest">Digital Efficiency</div>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="glass rounded-2xl p-4 border-white/5">
+            <div class="text-2xl font-black text-white mb-1">100%</div>
+            <div class="text-indigo-400 text-[8px] font-black uppercase tracking-widest">Digital Efficiency</div>
           </div>
-          <div class="glass rounded-3xl p-6 border-white/5">
-            <div class="text-4xl font-black text-white mb-1">Secure</div>
-            <div class="text-purple-400 text-[10px] font-black uppercase tracking-widest">Stakeholder Portal</div>
+          <div class="glass rounded-2xl p-4 border-white/5">
+            <div class="text-2xl font-black text-white mb-1">Secure</div>
+            <div class="text-purple-400 text-[8px] font-black uppercase tracking-widest">Stakeholder Portal</div>
           </div>
-          <div class="glass rounded-3xl p-6 border-white/5">
-            <div class="text-4xl font-black text-white mb-1">Real-time</div>
-            <div class="text-pink-400 text-[10px] font-black uppercase tracking-widest">Data Processing</div>
+          <div class="glass rounded-2xl p-4 border-white/5">
+            <div class="text-2xl font-black text-white mb-1">Real-time</div>
+            <div class="text-pink-400 text-[8px] font-black uppercase tracking-widest">Data Processing</div>
           </div>
         </div>
       </section>
 
       <!-- Right: Login & Fast Access (5 Cols) -->
-      <section class="lg:col-span-5 space-y-8">
+      <section class="lg:col-span-5 space-y-6">
         <!-- Login Card -->
-        <div class="glass rounded-[40px] p-10 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
-          <div class="mb-8">
-            <h2 class="text-3xl font-black text-white mb-2">Portal Login</h2>
-            <p class="text-slate-500 text-sm font-medium">Access your institutional workspace</p>
+        <div class="glass rounded-[32px] p-8 border border-white/10 shadow-2xl">
+          <div class="mb-6">
+            <h2 class="text-2xl font-black text-white mb-1">Portal Login</h2>
+            <p class="text-slate-500 text-xs font-medium">Access your institutional workspace</p>
           </div>
 
-          <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-6">
-            <div class="space-y-4">
+          <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+            <div class="space-y-3">
               <div class="group">
-                <label class="block text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-2 ml-1 group-focus-within:text-indigo-400 transition-colors">Username / ID</label>
+                <label class="block text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1.5 ml-1">Username / ID</label>
                 <input id="username" type="text" placeholder="Enter your username"
-                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700" required />
+                  class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm placeholder:text-slate-700" required />
               </div>
               <div class="group">
-                <label class="block text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-2 ml-1 group-focus-within:text-indigo-400 transition-colors">Password</label>
+                <label class="block text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1.5 ml-1">Password</label>
                 <div class="relative">
                   <input id="password" type="password" placeholder="••••••••"
-                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700" required />
-                  <button type="button" onclick="togglePwd()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm placeholder:text-slate-700" required />
+                  <button type="button" onclick="togglePwd()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                   </button>
                 </div>
               </div>
             </div>
 
-            <div id="loginError" class="hidden px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-bold text-center"></div>
+            <div id="loginError" class="hidden px-3 py-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-[10px] font-bold text-center"></div>
 
-            <button type="submit" id="loginBtn" class="btn-primary w-full py-5 rounded-2xl text-white font-black uppercase tracking-[0.3em] text-xs shadow-2xl">
-              Sign In to Management Portal
+            <button type="submit" id="loginBtn" class="btn-primary w-full py-4 rounded-xl text-white font-black uppercase tracking-[0.2em] text-[10px] shadow-xl">
+              Sign In to Portal
             </button>
           </form>
 
           <!-- Stakeholder Quick Access -->
-          <div class="mt-12 pt-8 border-t border-white/5">
-            <p class="text-indigo-400 font-black text-[9px] uppercase tracking-[0.4em] text-center mb-6">Stakeholder Fast-Login</p>
-            <div class="grid grid-cols-4 gap-3">
-              <button onclick="fillCreds('admin','admin123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30 transition-all text-center" title="Admin">
-                <div class="w-10 h-10 rounded-full bg-purple-500/20 mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+          <div class="mt-8 pt-6 border-t border-white/5">
+            <p class="text-indigo-400 font-black text-[8px] uppercase tracking-[0.3em] text-center mb-4">Fast-Login</p>
+            <div class="grid grid-cols-4 gap-2">
+              <button onclick="fillCreds('admin','admin123')" class="group p-2 rounded-xl bg-white/5 hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30 transition-all text-center">
+                <div class="w-8 h-8 rounded-full bg-purple-500/20 mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
               </button>
-              <button onclick="fillCreds('finance01','finance123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all text-center" title="Finance">
-                <div class="w-10 h-10 rounded-full bg-emerald-500/20 mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg></div>
+              <button onclick="fillCreds('finance01','finance123')" class="group p-2 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all text-center">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg></div>
               </button>
-              <button onclick="fillCreds('dr.smith','lecturer123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all text-center" title="Faculty">
-                <div class="w-10 h-10 rounded-full bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+              <button onclick="fillCreds('dr.smith','lecturer123')" class="group p-2 rounded-xl bg-white/5 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all text-center">
+                <div class="w-8 h-8 rounded-full bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
               </button>
-              <button onclick="fillCreds('STU2024001','alice johnson')" class="group p-3 rounded-2xl bg-white/5 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/30 transition-all text-center" title="Student">
-                <div class="w-10 h-10 rounded-full bg-blue-500/20 mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14"/></svg></div>
+              <button onclick="fillCreds('STU2024001','alice johnson')" class="group p-2 rounded-xl bg-white/5 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/30 transition-all text-center">
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14"/></svg></div>
               </button>
             </div>
           </div>
@@ -239,42 +239,38 @@
     </main>
 
     <!-- Bottom: Suggestions & Concept Section -->
-    <section class="glass rounded-[40px] p-12 border border-white/10 shadow-2xl">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+    <section class="glass rounded-[32px] p-8 lg:p-10 border border-white/10 shadow-2xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Feedback Column -->
-        <div class="space-y-6">
-          <div class="flex items-center gap-4">
-            <div class="w-2 h-10 bg-indigo-500 rounded-full"></div>
-            <h3 class="text-3xl font-black text-white">Student Voice</h3>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-indigo-500 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white">Student Voice</h3>
           </div>
-          <p class="text-slate-400 text-base font-medium leading-relaxed">
-            Your insights shape the future of Cavendish. Submit your feedback directly to the University Administration.
+          <p class="text-slate-400 text-sm font-medium leading-relaxed">
+            Your insights shape the future. Submit feedback directly to Administration.
           </p>
-          <textarea placeholder="How can we improve your campus experience?" class="w-full bg-white/5 border border-white/10 rounded-3xl p-8 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700 h-48"></textarea>
-          <button class="w-full py-5 bg-indigo-600/10 hover:bg-indigo-600 border border-indigo-500/30 rounded-2xl text-indigo-400 hover:text-white font-black uppercase tracking-[0.4em] text-xs transition-all shadow-xl">Submit Institutional Suggestion</button>
+          <textarea placeholder="How can we improve your experience?" class="w-full bg-white/5 border border-white/10 rounded-2xl p-5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all h-32"></textarea>
+          <button class="w-full py-4 bg-indigo-600/10 hover:bg-indigo-600 border border-indigo-500/30 rounded-xl text-indigo-400 hover:text-white font-black uppercase tracking-[0.3em] text-[10px] transition-all">Submit Feedback</button>
         </div>
 
         <!-- Graduation Column -->
-        <div class="space-y-6">
-          <div class="flex items-center gap-4">
-            <div class="w-2 h-10 bg-amber-500 rounded-full"></div>
-            <h3 class="text-3xl font-black text-white">Class of 2025</h3>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-amber-500 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white">Class of 2025</h3>
           </div>
-          <p class="text-slate-400 text-base font-medium leading-relaxed">
-            Preview the visual identity for our 14th Graduation Ceremony. Vote for the concept that represents your journey.
+          <p class="text-slate-400 text-sm font-medium leading-relaxed">
+            Preview the visual identity for our 14th Graduation Ceremony.
           </p>
-          <div class="space-y-4 max-h-[350px] overflow-y-auto pr-4 custom-scrollbar">
-            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-amber-500/50 hover:bg-white/10 transition-all cursor-pointer group">
-              <div class="text-amber-400 font-black text-[10px] uppercase tracking-widest mb-2">Alpha: Royal Legacy</div>
-              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Gold-embossed typography on velvety midnight blue. Features cinematic photography of the Class of 2025 in full ceremonial regalia."</p>
+          <div class="space-y-3 max-h-[250px] overflow-y-auto pr-3 custom-scrollbar">
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/50 hover:bg-white/10 transition-all cursor-pointer group">
+              <div class="text-amber-400 font-black text-[9px] uppercase tracking-widest mb-1">Alpha: Royal Legacy</div>
+              <p class="text-slate-400 text-[10px] italic group-hover:text-slate-200">"Gold-embossed typography on velvety midnight blue."</p>
             </div>
-            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-indigo-500/50 hover:bg-white/10 transition-all cursor-pointer group">
-              <div class="text-indigo-400 font-black text-[10px] uppercase tracking-widest mb-2">Beta: Digital Horizon</div>
-              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Futuristic grid-based layout with high-resolution action shots. Emphasizes the theme of 'Empowering Futures' through modern aesthetics."</p>
-            </div>
-            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-emerald-500/50 hover:bg-white/10 transition-all cursor-pointer group">
-              <div class="text-emerald-400 font-black text-[10px] uppercase tracking-widest mb-2">Gamma: Minimalist Excellence</div>
-              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Clean, high-contrast design optimized for digital clarity. Focuses on the core achievements and the unity of the graduating class."</p>
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-indigo-500/50 hover:bg-white/10 transition-all cursor-pointer group">
+              <div class="text-indigo-400 font-black text-[9px] uppercase tracking-widest mb-1">Beta: Digital Horizon</div>
+              <p class="text-slate-400 text-[10px] italic group-hover:text-slate-200">"Futuristic grid-based layout with action shots."</p>
             </div>
           </div>
         </div>
