@@ -276,13 +276,41 @@
       </div>
 
 
-      <div class="mt-8 glass rounded-3xl p-6 border border-white/5">
-        <h3 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
-          Student Suggestions
-        </h3>
-        <textarea placeholder="Tell us how we can improve..." class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 h-20 mb-3"></textarea>
-        <button class="w-full py-2 bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/30 rounded-lg text-indigo-300 text-[10px] font-bold uppercase tracking-widest transition-all">Submit Suggestion</button>
+      <div class="mt-8 glass rounded-3xl p-8 border border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- Suggestion Area -->
+          <div>
+            <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+              Student Suggestions
+            </h3>
+            <p class="text-slate-400 text-xs mb-4 leading-relaxed">Your feedback helps us cultivate a better campus experience. Share your thoughts with the administration.</p>
+            <textarea placeholder="Tell us how we can improve..." class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 h-32 mb-4"></textarea>
+            <button class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-white text-xs font-bold uppercase tracking-widest transition-all shadow-lg shadow-indigo-500/20">Submit Suggestion</button>
+          </div>
+
+          <!-- Graduation Concept Area -->
+          <div>
+            <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              Graduation 2025 Concepts
+            </h3>
+            <div class="space-y-4 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <div class="text-amber-400 font-bold text-[10px] uppercase mb-1">Option 1: High-Fidelity Poster</div>
+                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Dark blue background, golden badge, 'Empowering Futures' theme, smiling graduates in purple regalia holding diplomas high."</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <div class="text-indigo-400 font-bold text-[10px] uppercase mb-1">Option 2: Atmospheric Scene</div>
+                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Joyful photography of Black graduates in detailed stoles, infectious smiles, auditorium lighting, gold lettering."</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <div class="text-emerald-400 font-bold text-[10px] uppercase mb-1">Option 3: Minimalist Layout</div>
+                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Clean midnight blue, elegant white typography, high-contrast photo, optimized for digital screens."</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <p class="text-center text-slate-600 text-xs mt-6">© 2024 Cavendish University Uganda · All rights reserved</p>
