@@ -3,7 +3,7 @@
 // Database Layer - js/db.js
 // ============================================================
 
-const DB_KEY = 'univ_db_v2';
+const DB_KEY = 'univ_db_v3';
 
 const GRADE_MAP = { 'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3, 'C': 2.0, 'C-': 1.7, 'D': 1.0, 'F': 0.0 };
 
@@ -16,14 +16,14 @@ function marksToGrade(m) {
 
 const SEED = {
   users: [
-    { id: 1, username: 'admin', password: 'admin123', role: 'admin', name: 'System Administrator', studentId: null, active: true, createdAt: '2024-01-01' },
+    { id: 1, username: 'admin', password: 'admin123', role: 'admin', name: 'FAIDA NANCY', studentId: null, active: true, createdAt: '2024-01-01' },
     { id: 2, username: 'registry01', password: 'registry123', role: 'registry', name: 'Mary Wanjiku', studentId: null, active: true, createdAt: '2024-01-01' },
     { id: 3, username: 'finance01', password: 'finance123', role: 'finance', name: 'Peter Kamau', studentId: null, active: true, createdAt: '2024-01-01' },
     { id: 4, username: 'dr.smith', password: 'lecturer123', role: 'lecturer', name: 'Dr. John Smith', studentId: null, active: true, createdAt: '2024-01-01', department: 'Computer Science' },
     { id: 5, username: 'dr.jane', password: 'lecturer123', role: 'lecturer', name: 'Dr. Jane Doe', studentId: null, active: true, createdAt: '2024-01-01', department: 'Business' },
-    { id: 6, username: 'STU2024001', password: 'student123', role: 'student', name: 'Alice Johnson', studentId: 'STU2024001', active: true, createdAt: '2024-01-15' },
-    { id: 7, username: 'STU2024002', password: 'student123', role: 'student', name: 'Bob Smith', studentId: 'STU2024002', active: true, createdAt: '2024-01-15' },
-    { id: 8, username: 'STU2024003', password: 'student123', role: 'student', name: 'Carol White', studentId: 'STU2024003', active: true, createdAt: '2024-01-15' },
+    { id: 6, username: 'STU2024001', password: 'alice johnson', role: 'student', name: 'Alice Johnson', studentId: 'STU2024001', active: true, createdAt: '2024-01-15' },
+    { id: 7, username: 'STU2024002', password: 'bob smith', role: 'student', name: 'Bob Smith', studentId: 'STU2024002', active: true, createdAt: '2024-01-15' },
+    { id: 8, username: 'STU2024003', password: 'carol white', role: 'student', name: 'Carol White', studentId: 'STU2024003', active: true, createdAt: '2024-01-15' },
   ],
   students: [
     { studentId: 'STU2024001', name: 'Alice Johnson', email: 'alice.johnson@uni.edu', phone: '+256712345678', program: 'Computer Science', year: 2, address: 'Ggaba Road, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-03-15', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024001' },
@@ -136,6 +136,20 @@ const Students = {
     const db = getDB();
     if (db.students.find(s => s.studentId === data.studentId)) throw new Error('Duplicate Student ID');
     db.students.push(data);
+    
+    // Auto-create user login account
+    const uid = Math.max(0, ...db.users.map(u => u.id)) + 1;
+    db.users.push({
+      id: uid,
+      username: data.studentId,
+      password: data.name.toLowerCase(),
+      role: 'student',
+      name: data.name,
+      studentId: data.studentId,
+      active: true,
+      createdAt: new Date().toISOString().split('T')[0]
+    });
+
     // Auto-create finance record
     const fid = Math.max(0, ...db.finance.map(f => f.id)) + 1;
     db.finance.push({ id: fid, studentId: data.studentId, totalFees: 45000, amountPaid: 0, balance: 45000, cleared: false });
