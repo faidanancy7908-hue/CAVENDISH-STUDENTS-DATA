@@ -110,216 +110,196 @@
 <link rel="icon" type="image/png" href="assets/images/logo.png" />
 </head>
 
-<body class="gradient-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<body class="gradient-bg min-h-screen p-6 lg:p-12 relative overflow-x-hidden">
   <div class="logo-border"></div>
-  <div class="overlay"></div>  <!-- Top-Left Branding & Contact Portal -->
-  <div class="absolute top-8 left-8 z-50 flex flex-col gap-6">
-    <div class="inline-flex items-center gap-4">
-      <div class="w-20 h-20 rounded-2xl bg-white p-2 flex items-center justify-center shadow-2xl ring-1 ring-white/10">
-        <img src="assets/images/logo.png" alt="CUU Logo" class="w-full h-auto object-contain">
-      </div>
-      <div>
-        <div class="text-2xl font-black text-white uppercase tracking-wider">Cavendish University</div>
-        <div class="text-indigo-300 text-sm font-bold tracking-widest">UGANDA</div>
-      </div>
-    </div>    <!-- Quick Contact Container -->
-    <div class="bg-indigo-600/20 backdrop-blur-xl rounded-2xl p-4 flex items-center gap-5 border border-indigo-500/30 shadow-xl">
-      <a href="https://twitter.com/CavendishUg" target="_blank" class="text-indigo-200 hover:text-white transition-all hover:scale-110" title="Twitter">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-      </a>
-      <div class="w-px h-4 bg-white/10"></div>
-      <a href="https://wa.me/256706695369" target="_blank" class="text-indigo-200 hover:text-white transition-all hover:scale-110" title="WhatsApp">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-      <div class="w-px h-4 bg-white/10"></div>
-      <a href="mailto:info@cavendish.ac.ug" class="text-indigo-200 hover:text-white transition-all hover:scale-110" title="Email">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-      </a>
-    </div>
+  <div class="overlay"></div>
 
-  </div>
-
-  <div class="w-full max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-10 relative z-10 pt-20">
-
-    <!-- Left: Branding (Hidden since moved to top) -->
-    <div class="flex-1 text-center lg:text-left hidden lg:block opacity-0 pointer-events-none">
-      <!-- Placeholder to maintain layout -->
-    </div>
+  <div class="max-w-7xl mx-auto relative z-10 space-y-12">
     
-    <div class="flex-1 text-center lg:text-left">
-      <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-tight">
-        Your Campus,<br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
-          Fully Connected
-        </span>
-      </h1>
-      <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-        A centralized platform for managing student records, courses, finance, and academic results — all in one place.
-      </p>
-      <!-- Stats row -->
-      <div class="flex flex-wrap gap-6 mt-8 justify-center lg:justify-start">
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">5+</div>
-          <div class="text-slate-500 text-xs">User Roles</div>
+    <!-- Top Header: Identity & Quick Contacts -->
+    <header class="flex flex-col lg:flex-row justify-between items-center gap-8 glass rounded-[40px] p-8 border border-white/10 shadow-2xl">
+      <div class="flex items-center gap-5">
+        <div class="w-20 h-20 rounded-2xl bg-white p-2 flex items-center justify-center shadow-xl ring-1 ring-white/10">
+          <img src="assets/images/logo.png" alt="CUU Logo" class="w-full h-auto object-contain">
         </div>
-        <div class="w-px bg-slate-700"></div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">6</div>
-          <div class="text-slate-500 text-xs">Core Modules</div>
-        </div>
-        <div class="w-px bg-slate-700"></div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">∞</div>
-          <div class="text-slate-500 text-xs">Records</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: Login Form -->
-    <div class="w-full max-w-md">
-      <div class="glass rounded-3xl p-8 card-shadow">
-        <h2 class="text-xl font-bold text-white mb-1">Welcome Back</h2>
-        <p class="text-slate-400 text-sm mb-6">Sign in to your account to continue</p>
-
-        <form id="loginForm" onsubmit="handleLogin(event)">
-          <div class="space-y-4">
-            <div>
-              <label class="block text-slate-300 text-sm font-medium mb-1.5">Username</label>
-              <input id="username" type="text" placeholder="Enter your username"
-                class="input-field w-full rounded-xl px-4 py-3 text-sm" required />
-            </div>
-            <div>
-              <label class="block text-slate-300 text-sm font-medium mb-1.5">Password</label>
-              <div class="relative">
-                <input id="password" type="password" placeholder="Enter your password"
-                  class="input-field w-full rounded-xl px-4 py-3 pr-12 text-sm" required />
-                <button type="button" onclick="togglePwd()"
-                  class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 p-1">
-                  <svg id="eye-icon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div id="loginError"
-            class="hidden mt-4 px-4 py-3 bg-red-500/15 border border-red-500/30 rounded-xl text-red-300 text-sm"></div>
-
-          <button type="submit" id="loginBtn"
-            class="btn-primary w-full mt-6 py-3.5 rounded-xl text-white font-semibold text-sm tracking-wide">
-            Sign In to Cavendish University Portal
-          </button>
-        </f        <!-- Stakeholder Fast-Login Portal -->
-        <div class="mt-8 border-t border-white/5 pt-6">
-          <p class="text-indigo-400 font-black text-[10px] uppercase tracking-[0.2em] text-center mb-4">Stakeholder Portal Access</p>
-          <div class="grid grid-cols-2 gap-3">
-            <button type="button" onclick="fillCreds('admin','admin123')" class="credential-card rounded-2xl p-3 text-left group">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                </div>
-                <div>
-                  <div class="text-white text-xs font-bold">Admin</div>
-                  <div class="text-slate-500 text-[10px]">Full Control</div>
-                </div>
-              </div>
-            </button>
-
-            <button type="button" onclick="fillCreds('finance01','finance123')" class="credential-card rounded-2xl p-3 text-left group">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg>
-                </div>
-                <div>
-                  <div class="text-white text-xs font-bold">Finance</div>
-                  <div class="text-slate-500 text-[10px]">Fee Records</div>
-                </div>
-              </div>
-            </button>
-
-            <button type="button" onclick="fillCreds('dr.smith','lecturer123')" class="credential-card rounded-2xl p-3 text-left group">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-all">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                </div>
-                <div>
-                  <div class="text-white text-xs font-bold">Faculty</div>
-                  <div class="text-slate-500 text-[10px]">Grades & Courses</div>
-                </div>
-              </div>
-            </button>
-
-            <button type="button" onclick="fillCreds('STU2024001','alice johnson')" class="credential-card rounded-2xl p-3 text-left group">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14"/></svg>
-                </div>
-                <div>
-                  <div class="text-white text-xs font-bold">Student</div>
-                  <div class="text-slate-500 text-[10px]">Academic Records</div>
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>    </div>
-
-
-      <div class="mt-8 glass rounded-3xl p-8 border border-white/5">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <!-- Suggestion Area -->
-          <div>
-            <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
-              <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
-              Student Suggestions
-            </h3>
-            <p class="text-slate-400 text-xs mb-4 leading-relaxed">Your feedback helps us cultivate a better campus experience. Share your thoughts with the administration.</p>
-            <textarea placeholder="Tell us how we can improve..." class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 h-32 mb-4"></textarea>
-            <button class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-white text-xs font-bold uppercase tracking-widest transition-all shadow-lg shadow-indigo-500/20">Submit Suggestion</button>
-          </div>
-
-          <!-- Graduation Concept Area -->
-          <div>
-            <h3 class="text-white font-bold text-lg mb-3 flex items-center gap-2">
-              <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-              Graduation 2025 Concepts
-            </h3>
-            <div class="space-y-4 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <div class="text-amber-400 font-bold text-[10px] uppercase mb-1">Option 1: High-Fidelity Poster</div>
-                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Dark blue background, golden badge, 'Empowering Futures' theme, smiling graduates in purple regalia holding diplomas high."</p>
-              </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <div class="text-indigo-400 font-bold text-[10px] uppercase mb-1">Option 2: Atmospheric Scene</div>
-                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Joyful photography of Black graduates in detailed stoles, infectious smiles, auditorium lighting, gold lettering."</p>
-              </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <div class="text-emerald-400 font-bold text-[10px] uppercase mb-1">Option 3: Minimalist Layout</div>
-                <p class="text-slate-400 text-[10px] leading-relaxed italic">"Clean midnight blue, elegant white typography, high-contrast photo, optimized for digital screens."</p>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h1 class="text-3xl font-black text-white uppercase tracking-wider">Cavendish</h1>
+          <p class="text-indigo-400 text-sm font-bold tracking-[0.3em]">UNIVERSITY UGANDA</p>
         </div>
       </div>
 
-      <p class="text-center text-slate-600 text-xs mt-6">© 2024 Cavendish University Uganda · All rights reserved</p>
-    </div>
+      <div class="flex items-center gap-4">
+        <div class="px-6 py-3 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center gap-6 shadow-lg">
+          <a href="https://twitter.com/CavendishUg" target="_blank" class="text-white/60 hover:text-white transition-all flex items-center gap-2 group">
+            <svg class="w-5 h-5 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+            <span class="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Twitter</span>
+          </a>
+          <div class="w-px h-4 bg-white/10"></div>
+          <a href="https://wa.me/256706695369" target="_blank" class="text-white/60 hover:text-white transition-all flex items-center gap-2 group">
+            <svg class="w-5 h-5 group-hover:text-emerald-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="text-[10px] font-black uppercase tracking-widest hidden sm:inline">WhatsApp</span>
+          </a>
+          <div class="w-px h-4 bg-white/10"></div>
+          <a href="mailto:info@cavendish.ac.ug" class="text-white/60 hover:text-white transition-all flex items-center gap-2 group">
+            <svg class="w-5 h-5 group-hover:text-red-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span class="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Email</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Left: Vision & Stats (7 Cols) -->
+      <section class="lg:col-span-7 flex flex-col justify-center space-y-10">
+        <div class="space-y-6">
+          <h2 class="text-6xl lg:text-8xl font-black text-white leading-[0.95] tracking-tighter">
+            Your Campus,<br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+              Fully Connected
+            </span>
+          </h2>
+          <p class="text-slate-300 text-xl leading-relaxed max-w-2xl font-medium border-l-8 border-indigo-500/50 pl-8">
+            The next generation of academic management. A unified digital ecosystem for records, finance, and success.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8">
+          <div class="glass rounded-3xl p-6 border-white/5">
+            <div class="text-4xl font-black text-white mb-1">100%</div>
+            <div class="text-indigo-400 text-[10px] font-black uppercase tracking-widest">Digital Efficiency</div>
+          </div>
+          <div class="glass rounded-3xl p-6 border-white/5">
+            <div class="text-4xl font-black text-white mb-1">Secure</div>
+            <div class="text-purple-400 text-[10px] font-black uppercase tracking-widest">Stakeholder Portal</div>
+          </div>
+          <div class="glass rounded-3xl p-6 border-white/5">
+            <div class="text-4xl font-black text-white mb-1">Real-time</div>
+            <div class="text-pink-400 text-[10px] font-black uppercase tracking-widest">Data Processing</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Login & Fast Access (5 Cols) -->
+      <section class="lg:col-span-5 space-y-8">
+        <!-- Login Card -->
+        <div class="glass rounded-[40px] p-10 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
+          <div class="mb-8">
+            <h2 class="text-3xl font-black text-white mb-2">Portal Login</h2>
+            <p class="text-slate-500 text-sm font-medium">Access your institutional workspace</p>
+          </div>
+
+          <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-6">
+            <div class="space-y-4">
+              <div class="group">
+                <label class="block text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-2 ml-1 group-focus-within:text-indigo-400 transition-colors">Username / ID</label>
+                <input id="username" type="text" placeholder="Enter your username"
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700" required />
+              </div>
+              <div class="group">
+                <label class="block text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-2 ml-1 group-focus-within:text-indigo-400 transition-colors">Password</label>
+                <div class="relative">
+                  <input id="password" type="password" placeholder="••••••••"
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700" required />
+                  <button type="button" onclick="togglePwd()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="loginError" class="hidden px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-bold text-center"></div>
+
+            <button type="submit" id="loginBtn" class="btn-primary w-full py-5 rounded-2xl text-white font-black uppercase tracking-[0.3em] text-xs shadow-2xl">
+              Sign In to Management Portal
+            </button>
+          </form>
+
+          <!-- Stakeholder Quick Access -->
+          <div class="mt-12 pt-8 border-t border-white/5">
+            <p class="text-indigo-400 font-black text-[9px] uppercase tracking-[0.4em] text-center mb-6">Stakeholder Fast-Login</p>
+            <div class="grid grid-cols-4 gap-3">
+              <button onclick="fillCreds('admin','admin123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30 transition-all text-center" title="Admin">
+                <div class="w-10 h-10 rounded-full bg-purple-500/20 mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+              </button>
+              <button onclick="fillCreds('finance01','finance123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all text-center" title="Finance">
+                <div class="w-10 h-10 rounded-full bg-emerald-500/20 mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg></div>
+              </button>
+              <button onclick="fillCreds('dr.smith','lecturer123')" class="group p-3 rounded-2xl bg-white/5 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all text-center" title="Faculty">
+                <div class="w-10 h-10 rounded-full bg-amber-500/20 mx-auto flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+              </button>
+              <button onclick="fillCreds('STU2024001','alice johnson')" class="group p-3 rounded-2xl bg-white/5 hover:bg-blue-500/10 border border-transparent hover:border-blue-500/30 transition-all text-center" title="Student">
+                <div class="w-10 h-10 rounded-full bg-blue-500/20 mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14"/></svg></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom: Suggestions & Concept Section -->
+    <section class="glass rounded-[40px] p-12 border border-white/10 shadow-2xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <!-- Feedback Column -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <div class="w-2 h-10 bg-indigo-500 rounded-full"></div>
+            <h3 class="text-3xl font-black text-white">Student Voice</h3>
+          </div>
+          <p class="text-slate-400 text-base font-medium leading-relaxed">
+            Your insights shape the future of Cavendish. Submit your feedback directly to the University Administration.
+          </p>
+          <textarea placeholder="How can we improve your campus experience?" class="w-full bg-white/5 border border-white/10 rounded-3xl p-8 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-700 h-48"></textarea>
+          <button class="w-full py-5 bg-indigo-600/10 hover:bg-indigo-600 border border-indigo-500/30 rounded-2xl text-indigo-400 hover:text-white font-black uppercase tracking-[0.4em] text-xs transition-all shadow-xl">Submit Institutional Suggestion</button>
+        </div>
+
+        <!-- Graduation Column -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <div class="w-2 h-10 bg-amber-500 rounded-full"></div>
+            <h3 class="text-3xl font-black text-white">Class of 2025</h3>
+          </div>
+          <p class="text-slate-400 text-base font-medium leading-relaxed">
+            Preview the visual identity for our 14th Graduation Ceremony. Vote for the concept that represents your journey.
+          </p>
+          <div class="space-y-4 max-h-[350px] overflow-y-auto pr-4 custom-scrollbar">
+            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-amber-500/50 hover:bg-white/10 transition-all cursor-pointer group">
+              <div class="text-amber-400 font-black text-[10px] uppercase tracking-widest mb-2">Alpha: Royal Legacy</div>
+              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Gold-embossed typography on velvety midnight blue. Features cinematic photography of the Class of 2025 in full ceremonial regalia."</p>
+            </div>
+            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-indigo-500/50 hover:bg-white/10 transition-all cursor-pointer group">
+              <div class="text-indigo-400 font-black text-[10px] uppercase tracking-widest mb-2">Beta: Digital Horizon</div>
+              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Futuristic grid-based layout with high-resolution action shots. Emphasizes the theme of 'Empowering Futures' through modern aesthetics."</p>
+            </div>
+            <div class="p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-emerald-500/50 hover:bg-white/10 transition-all cursor-pointer group">
+              <div class="text-emerald-400 font-black text-[10px] uppercase tracking-widest mb-2">Gamma: Minimalist Excellence</div>
+              <p class="text-slate-400 text-xs italic group-hover:text-slate-200 transition-colors">"Clean, high-contrast design optimized for digital clarity. Focuses on the core achievements and the unity of the graduating class."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center pb-20 space-y-6">
+      <div class="flex justify-center gap-3">
+        <div class="w-1.5 h-1.5 rounded-full bg-slate-800"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-slate-800"></div>
+      </div>
+      <p class="text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">Cavendish University Uganda · Success Begins Here</p>
+    </footer>
   </div>
 
   <script src="js/db.js"></script>
   <script src="js/auth.js"></script>
   <script>
-    // Redirect if already logged in
     if (Auth.getSession()) window.location.href = 'dashboard.html';
 
     function fillCreds(u, p) {
       document.getElementById('username').value = u;
       document.getElementById('password').value = p;
-      document.getElementById('username').focus();
     }
 
     function togglePwd() {
@@ -333,19 +313,21 @@
       const p = document.getElementById('password').value;
       const btn = document.getElementById('loginBtn');
       const err = document.getElementById('loginError');
-      btn.textContent = 'Signing in…';
-      btn.disabled = true;
+      
+      btn.textContent = 'Processing Authenticity…';
+      btn.classList.add('opacity-80', 'cursor-not-allowed');
+      
       setTimeout(() => {
         const session = Auth.login(u, p);
         if (session) {
           window.location.href = 'dashboard.html';
         } else {
-          err.textContent = 'Invalid username or password. Please try again.';
+          err.textContent = 'Authentication Failed: Invalid Credentials';
           err.classList.remove('hidden');
-          btn.textContent = 'Sign In to CUU Portal';
-          btn.disabled = false;
+          btn.textContent = 'Sign In to Portal';
+          btn.classList.remove('opacity-80', 'cursor-not-allowed');
         }
-      }, 0);
+      }, 800);
     }
   </script>
 </body>
