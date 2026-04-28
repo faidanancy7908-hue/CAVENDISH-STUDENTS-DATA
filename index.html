@@ -96,11 +96,22 @@
     .eye-btn:hover {
       color: rgba(255, 255, 255, 0.8);
     }
+
+    .logo-border {
+      position: fixed;
+      inset: 0;
+      border: 12px solid transparent;
+      border-image: url('assets/images/logo.png') 30 round;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.4;
+    }
   </style>
 <link rel="icon" type="image/png" href="assets/images/logo.png" />
 </head>
 
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+  <div class="logo-border"></div>
   <div class="overlay"></div>
   <!-- Decorative Orbs -->
   <div
