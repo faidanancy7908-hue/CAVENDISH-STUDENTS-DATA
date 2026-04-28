@@ -3,7 +3,7 @@
 // Database Layer - js/db.js
 // ============================================================
 
-const DB_KEY = 'univ_db_v3';
+const DB_KEY = 'univ_db_v4';
 
 const GRADE_MAP = { 'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3, 'C': 2.0, 'C-': 1.7, 'D': 1.0, 'F': 0.0 };
 
@@ -24,13 +24,25 @@ const SEED = {
     { id: 6, username: 'STU2024001', password: 'alice johnson', role: 'student', name: 'Alice Johnson', studentId: 'STU2024001', active: true, createdAt: '2024-01-15' },
     { id: 7, username: 'STU2024002', password: 'bob smith', role: 'student', name: 'Bob Smith', studentId: 'STU2024002', active: true, createdAt: '2024-01-15' },
     { id: 8, username: 'STU2024003', password: 'carol white', role: 'student', name: 'Carol White', studentId: 'STU2024003', active: true, createdAt: '2024-01-15' },
+    { id: 9, username: 'STU2024004', password: 'david otieno', role: 'student', name: 'David Otieno', studentId: 'STU2024004', active: true, createdAt: '2024-01-15' },
+    { id: 10, username: 'STU2024005', password: 'eva mwangi', role: 'student', name: 'Eva Mwangi', studentId: 'STU2024005', active: true, createdAt: '2024-01-15' },
+    { id: 11, username: 'STU2024006', password: 'frank zake', role: 'student', name: 'Frank Zake', studentId: 'STU2024006', active: true, createdAt: '2024-01-15' },
+    { id: 12, username: 'STU2024007', password: 'grace namuli', role: 'student', name: 'Grace Namuli', studentId: 'STU2024007', active: true, createdAt: '2024-01-15' },
+    { id: 13, username: 'STU2024008', password: 'henry okello', role: 'student', name: 'Henry Okello', studentId: 'STU2024008', active: true, createdAt: '2024-01-15' },
+    { id: 14, username: 'STU2024009', password: 'irene musoke', role: 'student', name: 'Irene Musoke', studentId: 'STU2024009', active: true, createdAt: '2024-01-15' },
+    { id: 15, username: 'STU2024010', password: 'jack sempala', role: 'student', name: 'Jack Sempala', studentId: 'STU2024010', active: true, createdAt: '2024-01-15' },
   ],
   students: [
-    { studentId: 'STU2024001', name: 'Alice Johnson', email: 'alice.johnson@uni.edu', phone: '+256712345678', program: 'Computer Science', year: 2, address: 'Ggaba Road, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-03-15', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024001' },
+    { studentId: 'STU2024001', name: 'Alice Johnson', email: 'alice.johnson@uni.edu', phone: '+256712345678', program: 'Computer Science', year: 2, address: 'Ggaba Road, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-03-15', nationality: 'Ugandan', photo: 'assets/images/student_1.png' },
     { studentId: 'STU2024002', name: 'Bob Smith', email: 'bob.smith@uni.edu', phone: '+256723456789', program: 'Business Administration', year: 1, address: 'Kansanga, Kampala', status: 'active', enrolledDate: '2024-01-15', gender: 'Male', dob: '2003-07-22', nationality: 'Kenyan', photo: 'https://i.pravatar.cc/150?u=STU2024002' },
     { studentId: 'STU2024003', name: 'Carol White', email: 'carol.white@uni.edu', phone: '+256734567890', program: 'Civil Engineering', year: 3, address: 'Entebbe Road, Kampala', status: 'active', enrolledDate: '2022-09-01', gender: 'Female', dob: '2001-11-08', nationality: 'Tanzanian', photo: 'https://i.pravatar.cc/150?u=STU2024003' },
     { studentId: 'STU2024004', name: 'David Otieno', email: 'david.otieno@uni.edu', phone: '+256745678901', program: 'Computer Science', year: 1, address: 'Nsambya, Kampala', status: 'active', enrolledDate: '2024-01-15', gender: 'Male', dob: '2004-02-14', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024004' },
-    { studentId: 'STU2024005', name: 'Eva Mwangi', email: 'eva.mwangi@uni.edu', phone: '+256756789012', program: 'Medicine', year: 2, address: 'Mulago, Kampala', status: 'inactive', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-09-30', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024005' },
+    { studentId: 'STU2024005', name: 'Eva Mwangi', email: 'eva.mwangi@uni.edu', phone: '+256756789012', program: 'Medicine', year: 2, address: 'Mulago, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-09-30', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024005' },
+    { studentId: 'STU2024006', name: 'Frank Zake', email: 'frank.zake@uni.edu', phone: '+256767890123', program: 'Law', year: 4, address: 'Nakasero, Kampala', status: 'active', enrolledDate: '2021-09-01', gender: 'Male', dob: '2000-05-12', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024006' },
+    { studentId: 'STU2024007', name: 'Grace Namuli', email: 'grace.namuli@uni.edu', phone: '+256778901234', program: 'Mass Communication', year: 2, address: 'Bugolobi, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-12-25', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024007' },
+    { studentId: 'STU2024008', name: 'Henry Okello', email: 'henry.okello@uni.edu', phone: '+256789012345', program: 'Economics', year: 1, address: 'Kololo, Kampala', status: 'active', enrolledDate: '2024-01-15', gender: 'Male', dob: '2004-08-03', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024008' },
+    { studentId: 'STU2024009', name: 'Irene Musoke', email: 'irene.musoke@uni.edu', phone: '+256790123456', program: 'Nursing', year: 3, address: 'Mengo, Kampala', status: 'active', enrolledDate: '2022-09-01', gender: 'Female', dob: '2001-04-19', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024009' },
+    { studentId: 'STU2024010', name: 'Jack Sempala', email: 'jack.sempala@uni.edu', phone: '+256701234567', program: 'Information Technology', year: 1, address: 'Kiwatule, Kampala', status: 'active', enrolledDate: '2024-01-15', gender: 'Male', dob: '2003-10-10', nationality: 'Ugandan', photo: 'https://i.pravatar.cc/150?u=STU2024010' },
   ],
   courses: [
     { courseCode: 'CS101', title: 'Introduction to Computer Science', creditUnits: 3, department: 'Computer Science', semester: '2024/1', lecturerId: 4, description: 'Fundamentals of computing and programming' },
@@ -134,6 +146,7 @@ const Students = {
   exists: (sid) => !!getDB().students.find(s => s.studentId === sid),
   create: (data) => {
     const db = getDB();
+    if (db.students.length >= 10) throw new Error('Maximum student capacity (10) reached for the system.');
     if (db.students.find(s => s.studentId === data.studentId)) throw new Error('Duplicate Student ID');
     db.students.push(data);
     

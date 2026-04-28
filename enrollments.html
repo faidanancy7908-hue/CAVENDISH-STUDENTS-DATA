@@ -175,7 +175,7 @@
         ['Total Enrollments', all.length, 'bg-indigo-50 text-indigo-700'],
         ['Active Students Enrolled', [...new Set(all.map(e => e.studentId))].length, 'bg-purple-50 text-purple-700'],
         ['Semesters', sems.length, 'bg-blue-50 text-blue-700'],
-      ].map(([l, v, c]) => `<div class="${c} rounded-2xl p-4"><div class="text-2xl font-bold">${v}</div><div class="text-sm font-medium opacity-75">${l}</div></div>`).join('');
+      ].map(([l, v, c]) => `<div class="${c} rounded-2xl p-4"><div class="text-2xl font-bold">${v}</div><div class="text-sm font-medium opacity-80">${l}</div></div>`).join('');
     }
 
     function renderTable() {
