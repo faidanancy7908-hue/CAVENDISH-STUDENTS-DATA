@@ -42,12 +42,12 @@ const Auth = {
 
 // Role-based navigation config
 const NAV_ITEMS = [
-  { label: 'Dashboard', icon: 'grid', href: 'dashboard.html', roles: ['admin', 'registry', 'finance', 'lecturer', 'student', 'parent'] },
+  { label: 'Dashboard', icon: 'grid', href: 'dashboard.html', roles: ['admin', 'registry', 'finance', 'lecturer', 'student'] },
   { label: 'Students', icon: 'users', href: 'students.html', roles: ['admin', 'registry'] },
   { label: 'Courses', icon: 'book-open', href: 'courses.html', roles: ['admin', 'registry', 'lecturer'] },
-  { label: 'Enrollments', icon: 'clipboard-list', href: 'enrollments.html', roles: ['admin', 'registry', 'student', 'parent'] },
-  { label: 'Finance', icon: 'credit-card', href: 'finance.html', roles: ['admin', 'finance', 'parent'] },
-  { label: 'Grades', icon: 'bar-chart-2', href: 'grades.html', roles: ['admin', 'lecturer', 'parent'] },
+  { label: 'Enrollments', icon: 'clipboard-list', href: 'enrollments.html', roles: ['admin', 'registry', 'student'] },
+  { label: 'Finance', icon: 'credit-card', href: 'finance.html', roles: ['admin', 'finance'] },
+  { label: 'Grades', icon: 'bar-chart-2', href: 'grades.html', roles: ['admin', 'lecturer'] },
   { label: 'Reports', icon: 'file-text', href: 'reports.html', roles: ['admin', 'registry', 'finance'] },
   { label: 'My Profile', icon: 'user', href: 'profile.html', roles: ['student'] },
   { label: 'Users', icon: 'shield', href: 'users.html', roles: ['admin'] },

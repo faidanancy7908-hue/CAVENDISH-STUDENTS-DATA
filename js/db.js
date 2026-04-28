@@ -31,7 +31,6 @@ const SEED = {
     { id: 13, username: 'STU2024008', password: 'henry okello', role: 'student', name: 'Henry Okello', studentId: 'STU2024008', active: true, createdAt: '2024-01-15' },
     { id: 14, username: 'STU2024009', password: 'irene musoke', role: 'student', name: 'Irene Musoke', studentId: 'STU2024009', active: true, createdAt: '2024-01-15' },
     { id: 15, username: 'STU2024010', password: 'jack sempala', role: 'student', name: 'Jack Sempala', studentId: 'STU2024010', active: true, createdAt: '2024-01-15' },
-    { id: 16, username: 'parent01', password: 'parent123', role: 'parent', name: 'John Johnson (Parent)', studentId: 'STU2024001', active: true, createdAt: '2024-01-01' },
   ],
   students: [
     { studentId: 'STU2024001', name: 'Alice Johnson', email: 'alice.johnson@uni.edu', phone: '+256712345678', program: 'Computer Science', year: 2, address: 'Ggaba Road, Kampala', status: 'active', enrolledDate: '2023-09-01', gender: 'Female', dob: '2002-03-15', nationality: 'Ugandan', photo: 'assets/images/student_1.png' },

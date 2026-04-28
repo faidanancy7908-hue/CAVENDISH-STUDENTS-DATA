@@ -80,8 +80,8 @@ function renderSidebar(activePage) {
       </a>`;
   }).join('');
 
-  const roleLabels = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student', parent: 'Parent' };
-  const roleColors = { admin: 'text-purple-400', registry: 'text-blue-400', finance: 'text-emerald-400', lecturer: 'text-amber-400', student: 'text-slate-400', parent: 'text-rose-400' };
+  const roleLabels = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student' };
+  const roleColors = { admin: 'text-purple-400', registry: 'text-blue-400', finance: 'text-emerald-400', lecturer: 'text-amber-400', student: 'text-slate-400' };
 
   const sidebar = document.getElementById('sidebar');
   sidebar.innerHTML = `
