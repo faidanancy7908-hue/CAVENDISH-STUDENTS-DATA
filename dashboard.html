@@ -33,20 +33,23 @@
 <body class="bg-slate-50 flex h-screen overflow-hidden">
 
   <!-- Sidebar -->
-  <div id="sidebar-wrapper"
-    class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+  <aside id="sidebar-wrapper"
+    class="fixed lg:static inset-y-0 left-0 z-40 w-72 bg-[#0a0f1c] border-r border-white/5 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
     <div id="sidebar"></div>
-  </div>
-  <div class="flex-1 flex flex-col overflow-hidden">
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden bg-slate-50">
     <!-- Topbar -->
-    <header
-      class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between flex-shrink-0 shadow-sm">
-      <div id="topbar"></div>
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 py-4 flex items-center justify-between flex-shrink-0 z-30 shadow-sm">
+      <div id="topbar" class="w-full flex items-center justify-between"></div>
     </header>
+
     <!-- Main -->
-    <main class="flex-1 overflow-y-auto p-6 relative z-0">
-      <div class="absolute inset-0 z-[-1] pointer-events-none opacity-10 mix-blend-multiply" style="background-image: url('assets/images/background.png'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
-      <div id="app" class="relative z-10"></div>
+    <main class="flex-1 overflow-y-auto p-8 relative z-0">
+      <!-- Background Texture -->
+      <div class="absolute inset-0 z-[-1] pointer-events-none opacity-5 mix-blend-multiply" style="background-image: url('assets/images/background.png'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
+      
+      <div id="app" class="max-w-7xl mx-auto space-y-8"></div>
     </main>
   </div>
 
@@ -75,42 +78,42 @@
       let statsHTML = '';
       if (['admin', 'registry'].includes(session.role)) {
         statsHTML = `
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
-        ${statCard('Total Students', totalStudents, 'of ' + activeStudents + ' active', 'bg-blue-500', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z')}
-        ${statCard('Courses Offered', totalCourses, 'This semester', 'bg-indigo-500', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
-        ${statCard('Total Enrollments', totalEnrollments, 'Across all courses', 'bg-purple-500', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2')}
-        ${statCard('Financial Clearance', cleared + '/' + s.length, 'Students cleared', 'bg-emerald-500', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0')}
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        ${statCard('Total Students', totalStudents, 'Active members', 'from-blue-500 to-indigo-600', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z')}
+        ${statCard('Courses', totalCourses, 'Academic units', 'from-indigo-500 to-purple-600', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
+        ${statCard('Enrollments', totalEnrollments, 'System wide', 'from-purple-500 to-pink-600', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2')}
+        ${statCard('Clearance', cleared, 'Students cleared', 'from-emerald-500 to-teal-600', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0')}
       </div>`;
       } else if (session.role === 'finance') {
         statsHTML = `
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
-        ${statCard('Total Revenue', 'KES ' + totalRevenue.toLocaleString(), 'Collected this semester', 'bg-emerald-500', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0')}
-        ${statCard('Outstanding Fees', 'KES ' + outstanding.toLocaleString(), 'Pending collection', 'bg-red-500', 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3')}
-        ${statCard('Students Cleared', cleared, 'Financially cleared', 'bg-blue-500', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0')}
-        ${statCard('Total Students', totalStudents, 'Registered students', 'bg-purple-500', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0')}
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        ${statCard('Total Revenue', fmtCurrency(totalRevenue), 'Collected', 'from-emerald-500 to-teal-600', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0')}
+        ${statCard('Outstanding', fmtCurrency(outstanding), 'Pending', 'from-red-500 to-rose-600', 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3')}
+        ${statCard('Cleared Students', cleared, 'Financial check', 'from-blue-500 to-indigo-600', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0')}
+        ${statCard('Total Base', totalStudents, 'Registered', 'from-purple-500 to-pink-600', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0')}
       </div>`;
       } else if (session.role === 'lecturer') {
         const myCourses = c.filter(x => x.lecturerId === session.id);
         const myResults = db.results.filter(x => x.gradedBy === session.id);
         const myEnrollments = e.filter(x => myCourses.some(mc => mc.courseCode === x.courseCode));
         statsHTML = `
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 mb-8">
-        ${statCard('My Courses', myCourses.length, 'Assigned this semester', 'bg-indigo-500', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
-        ${statCard('Students to Grade', myEnrollments.length, 'Total enrollments', 'bg-purple-500', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0')}
-        ${statCard('Grades Entered', myResults.length, 'Results submitted', 'bg-emerald-500', 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2')}
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        ${statCard('My Courses', myCourses.length, 'Assigned units', 'from-indigo-500 to-purple-600', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
+        ${statCard('Total Students', myEnrollments.length, 'Enrollment count', 'from-purple-500 to-pink-600', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0')}
+        ${statCard('Results Entered', myResults.length, 'Grading progress', 'from-emerald-500 to-teal-600', 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2')}
       </div>`;
-      } else if (session.role === 'student') {
-        const stu = db.students.find(x => x.studentId === session.studentId);
-        const fin = db.finance.find(x => x.studentId === session.studentId);
-        const myEnroll = e.filter(x => x.studentId === session.studentId);
-        const myResults = db.results.filter(x => x.studentId === session.studentId);
-        const gpaData = Results.calcGPA(session.studentId);
+      } else if (session.role === 'student' || session.role === 'parent') {
+        const sid = session.role === 'student' ? session.studentId : session.studentId; // Parent uses child's studentId
+        const stu = db.students.find(x => x.studentId === sid);
+        const fin = db.finance.find(x => x.studentId === sid);
+        const myEnroll = e.filter(x => x.studentId === sid);
+        const gpaData = Results.calcGPA(sid);
         statsHTML = `
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
-        ${statCard('My Program', stu ? stu.program : '—', 'Year ' + (stu ? stu.year : '?'), 'bg-indigo-500', 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14')}
-        ${statCard('Enrolled Courses', myEnroll.length, 'This semester', 'bg-blue-500', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
-        ${statCard('Current GPA', gpaData.gpa, 'CGPA: ' + gpaData.cgpa, 'bg-purple-500', 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2')}
-        ${statCard('Fee Balance', fin ? 'KES ' + fin.balance.toLocaleString() : '—', fin && fin.cleared ? '✓ Cleared' : 'Pending', fin && fin.cleared ? 'bg-emerald-500' : 'bg-red-500', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0')}
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        ${statCard('My Program', stu ? stu.program : '—', 'Year ' + (stu ? stu.year : '?'), 'from-indigo-500 to-purple-600', 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14')}
+        ${statCard('Enrolled Units', myEnroll.length, 'This semester', 'from-blue-500 to-indigo-600', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253')}
+        ${statCard('Academic GPA', gpaData.gpa, 'Performance', 'from-purple-500 to-pink-600', 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2')}
+        ${statCard('Fee Balance', fin ? fmtCurrency(fin.balance) : '—', fin && fin.cleared ? '✓ Cleared' : 'Outstanding', fin && fin.cleared ? 'from-emerald-500 to-teal-600' : 'from-rose-500 to-red-600', 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0')}
       </div>`;
       }
 
@@ -297,12 +300,20 @@
     }
 
     function statCard(label, value, sub, color, path) {
-      return `<div class="bg-white rounded-2xl border border-slate-200 p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
-    <div class="w-12 h-12 rounded-xl ${color} flex items-center justify-center flex-shrink-0">
-      <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}"/></svg>
-    </div>
-    <div><div class="text-2xl font-bold text-slate-800">${value}</div><div class="text-slate-500 text-sm font-medium">${label}</div><div class="text-slate-400 text-xs mt-0.5">${sub}</div></div>
-  </div>`;
+      return `
+      <div class="group bg-white rounded-[24px] p-6 border border-slate-200 hover:border-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${color} opacity-[0.03] rounded-full translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-700"></div>
+        <div class="flex items-start gap-4 relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20 group-hover:rotate-6 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}"/></svg>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-slate-900 leading-none tracking-tight">${value}</div>
+            <div class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">${label}</div>
+            <div class="text-slate-400 text-[10px] font-medium mt-1">${sub}</div>
+          </div>
+        </div>
+      </div>`;
     }
     function getGreeting() {
       const h = new Date().getHours();

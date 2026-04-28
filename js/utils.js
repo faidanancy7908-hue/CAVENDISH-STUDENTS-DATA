@@ -73,48 +73,55 @@ function renderSidebar(activePage) {
   const navHTML = visibleNav.map(item => {
     const isActive = item.href === activePage;
     return `
-      <a href="${item.href}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group
-        ${isActive ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-700/50 hover:text-white'}">
-        <span class="${isActive ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400'}">${ICONS[item.icon]}</span>
+      <a href="${item.href}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 group
+        ${isActive ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 translate-x-1' : 'text-slate-400 hover:bg-white/5 hover:text-white'}">
+        <span class="${isActive ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400 transition-colors'}">${ICONS[item.icon]}</span>
         ${item.label}
-        ${isActive ? '<span class="ml-auto w-1.5 h-1.5 rounded-full bg-white opacity-75"></span>' : ''}
       </a>`;
   }).join('');
 
-  const roleLabels = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student' };
-  const roleColors = { admin: 'bg-purple-500/20 text-purple-300', registry: 'bg-blue-500/20 text-blue-300', finance: 'bg-emerald-500/20 text-emerald-300', lecturer: 'bg-amber-500/20 text-amber-300', student: 'bg-slate-500/20 text-slate-300' };
+  const roleLabels = { admin: 'Administrator', registry: 'Registry Staff', finance: 'Finance Officer', lecturer: 'Lecturer', student: 'Student', parent: 'Parent' };
+  const roleColors = { admin: 'text-purple-400', registry: 'text-blue-400', finance: 'text-emerald-400', lecturer: 'text-amber-400', student: 'text-slate-400', parent: 'text-rose-400' };
 
   const sidebar = document.getElementById('sidebar');
   sidebar.innerHTML = `
     <div class="flex flex-col h-full">
-      <!-- Logo -->
-      <div class="px-6 py-6 border-b border-white/5">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shadow-2xl ring-1 ring-white/20">
-            <img src="assets/images/logo.png" alt="CUU Logo" style="height: 40px; width: auto;" class="object-contain" onerror="this.src='https://ui-avatars.com/api/?name=CUU&background=6366f1&color=fff'">
+      <!-- Logo Section -->
+      <div class="px-8 py-8">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-2xl ring-4 ring-indigo-500/10">
+            <img src="assets/images/logo.png" alt="CUU" class="h-full w-auto object-contain" onerror="this.src='https://ui-avatars.com/api/?name=CU&background=6366f1&color=fff'">
           </div>
           <div>
-            <div class="text-white font-black text-sm leading-tight uppercase tracking-tighter">Cavendish</div>
-            <div class="text-indigo-400 text-[10px] font-bold tracking-widest">UNIVERSITY UGANDA</div>
+            <div class="text-white font-black text-base leading-none tracking-tighter uppercase">Cavendish</div>
+            <div class="text-indigo-500 text-[10px] font-bold tracking-[0.2em] mt-1">UNIVERSITY</div>
           </div>
         </div>
       </div>
-      <!-- Nav -->
-      <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto custom-scrollbar">${navHTML}</nav>
-      <!-- User -->
-      <div class="px-4 py-6 border-t border-white/5 bg-black/20 backdrop-blur-md">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-lg ring-1 ring-white/20">
-            ${session.name.charAt(0)}
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
+        <p class="px-4 text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-4">Core Modules</p>
+        ${navHTML}
+      </nav>
+
+      <!-- User Profile Card -->
+      <div class="p-4 mt-auto">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
+              ${session.name.charAt(0)}
+            </div>
+            <div class="min-w-0">
+              <div class="text-white text-sm font-bold truncate leading-none">${session.name.split(' ')[0]}</div>
+              <div class="text-[10px] font-bold mt-1 uppercase tracking-wider ${roleColors[session.role]}">${roleLabels[session.role]}</div>
+            </div>
           </div>
-          <div class="min-w-0">
-            <div class="text-white text-sm font-semibold truncate tracking-tight">${session.name}</div>
-            <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${roleColors[session.role]}">${roleLabels[session.role]}</span>
-          </div>
+          <button onclick="Auth.logout()" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white text-[10px] font-black uppercase tracking-widest transition-all duration-300">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            Sign Out
+          </button>
         </div>
-        <button onclick="Auth.logout()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 border border-white/5 text-xs font-semibold transition-all duration-300">
-          ${ICONS['log-out']} Sign out System
-        </button>
       </div>
     </div>`;
 }
@@ -128,29 +135,39 @@ function buildPage(activePage, title) {
   const topbar = document.getElementById('topbar');
   if (topbar) {
     topbar.innerHTML = `
-      <div class="flex items-center gap-4 flex-1">
-        <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100" onclick="document.getElementById('sidebar-wrapper').classList.toggle('-translate-x-full')">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <div class="flex items-center gap-6 flex-1">
+        <button id="sidebar-toggle" class="lg:hidden p-2 rounded-xl text-slate-500 hover:bg-slate-100 transition-colors" onclick="document.getElementById('sidebar-wrapper').classList.toggle('-translate-x-full')">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
-        <div class="relative hidden md:block max-w-xs w-full">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          </div>
-          <input type="text" placeholder="Jump to module..." class="w-full pl-10 pr-4 py-2 bg-slate-100 border-none rounded-xl text-xs focus:ring-2 focus:ring-indigo-500 transition-all" 
-            onkeyup="if(event.key==='Enter'){ const v=this.value.toLowerCase(); if(v.includes('fin')) window.location.href='finance.html'; if(v.includes('stu')) window.location.href='students.html'; if(v.includes('rep')) window.location.href='reports.html'; if(v.includes('use')) window.location.href='users.html'; if(v.includes('das')) window.location.href='dashboard.html'; if(v.includes('grad')) window.location.href='grades.html'; }">
+        <div>
+          <h1 class="text-xl font-black text-slate-900 tracking-tight leading-none">${title}</h1>
+          <p class="text-xs text-slate-400 font-medium mt-1.5 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+            ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
         </div>
-        <div class="hidden sm:block">
-          <h1 class="text-sm font-bold text-slate-800">${title}</h1>
-          <p class="text-[10px] text-slate-400 font-medium">${new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+        
+        <div class="hidden md:flex flex-1 max-w-md ml-4">
+          <div class="relative w-full group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <input type="text" placeholder="Search records, finance or grades..." 
+              class="w-full pl-11 pr-4 py-2.5 bg-slate-100 border-2 border-transparent focus:border-indigo-500/20 focus:bg-white rounded-2xl text-xs font-medium transition-all outline-none" 
+              onkeyup="if(event.key==='Enter'){ const v=this.value.toLowerCase(); if(v.includes('fin')) window.location.href='finance.html'; if(v.includes('stu')) window.location.href='students.html'; if(v.includes('rep')) window.location.href='reports.html'; if(v.includes('use')) window.location.href='users.html'; if(v.includes('das')) window.location.href='dashboard.html'; if(v.includes('grad')) window.location.href='grades.html'; }">
+          </div>
         </div>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-lg text-[10px] font-bold text-slate-500 uppercase tracking-tight">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          System Live
+
+      <div class="flex items-center gap-4">
+        <div class="hidden xl:flex flex-col items-end">
+          <span class="text-[10px] font-black text-slate-900 uppercase tracking-widest">${session.name}</span>
+          <span class="text-[9px] font-bold text-indigo-500 uppercase tracking-tighter">System Online</span>
         </div>
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-xs shadow-lg ring-1 ring-white/20">
-          ${session.name.charAt(0)}
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 p-0.5 shadow-lg">
+          <div class="w-full h-full rounded-[14px] bg-white flex items-center justify-center text-indigo-600 font-black text-sm">
+            ${session.name.charAt(0)}
+          </div>
         </div>
       </div>`;
   }

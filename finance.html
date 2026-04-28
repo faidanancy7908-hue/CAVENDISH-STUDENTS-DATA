@@ -48,16 +48,23 @@
 </head>
 
 <body class="bg-slate-50 flex h-screen overflow-hidden">
-  <div id="sidebar-wrapper"
-    class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
+  <!-- Sidebar -->
+  <aside id="sidebar-wrapper"
+    class="fixed lg:static inset-y-0 left-0 z-40 w-72 bg-[#0a0f1c] border-r border-white/5 flex-shrink-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 sidebar-scroll overflow-y-auto">
     <div id="sidebar"></div>
-  </div>
-  <div class="flex-1 flex flex-col overflow-hidden">
-    <header class="bg-white border-b border-slate-200 px-6 py-4 flex-shrink-0 shadow-sm">
-      <div id="topbar" class="flex items-center justify-between w-full"></div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden bg-slate-50">
+    <!-- Topbar -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 py-4 flex items-center justify-between flex-shrink-0 z-30 shadow-sm">
+      <div id="topbar" class="w-full flex items-center justify-between"></div>
     </header>
-    <main class="flex-1 overflow-y-auto p-6 relative z-0">
-      <div class="absolute inset-0 z-[-1] pointer-events-none opacity-10 mix-blend-multiply"
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-8 relative z-0">
+      <div class="absolute inset-0 z-[-1] pointer-events-none opacity-5 mix-blend-multiply" style="background-image: url('assets/images/background.png'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
+      
+      <div class="max-w-7xl mx-auto space-y-8">
         style="background-image: url('assets/images/finance_bg.png'); background-size: cover; background-position: center; background-attachment: fixed;">
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
